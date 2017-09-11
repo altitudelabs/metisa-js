@@ -8,6 +8,9 @@
     "build-browser": "node builders/build-browser.js",
     "build-browser:watch": "nodemon --watch ./src -e js -x \"npm run build-browser\"",
     "node-sample": "nodemon ./sample/node",
+    "build-doc": "gitbook build ./doc ./doc/dist",
+    "build-doc:watch": "gitbook serve ./doc ./doc/dist",
+    "deploy-doc": "gitbook build ./doc ./doc/dist && gh-pages -d ./doc/dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +32,7 @@
   "homepage": "https://github.com/altitudelabs/metisa-js#readme",
   "devDependencies": {
     "browserify": "14.4.0",
-    "express": "4.15.4"
+    "express": "4.15.4",
+    "gh-pages": "1.0.0"
   }
 }
