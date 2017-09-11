@@ -71,6 +71,11 @@ _JS sdk for Metisa API_
 |   |   content for script tag
 ├── builders
 |   contains scripts to build files into /dist
+├── deploy
+|   deploy scripts
+├── doc
+|   Documentation for Metisa javascript sdk.
+|   This directory will be used to deploy documentation to Github pages
 ```
 
 **Run it locally**
@@ -89,3 +94,18 @@ Refresh the browser to see the reflected change
 *Nodejs SDK*
 
 `npm run node-sample`
+
+*Documentation*
+
+`npm run build-doc:watch`
+
+
+**Deploying Documentation**
+
+Prerequisite for this is [Gitbook CLI](https://www.npmjs.com/package/gitbook-cli)
+
+After updating documentation under `/doc`, you can deploy by simply running
+```
+npm run deploy-doc
+```
+You will be able to see the reflected changes [here](https://altitudelabs.github.io/metisa-js/).
