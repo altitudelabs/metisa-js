@@ -4,8 +4,8 @@ class Metisa {
     this.opts = Object.assign(
       {
         baseUrl: 'https://askmetisa.com/',
-        productEndpoint: "metisa/api/v1/product",
-        orderEndpoint: "metisa/api/v1/order",
+        productEndpoint: "metisa/api/v1/product-collection",
+        orderEndpoint: "metisa/api/v1/order-transaction",
       },
       opts
     );

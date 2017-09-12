@@ -16,7 +16,7 @@
     <div>Sample Shop</div>
     <a href="./product-1.html">Product 1</a>
 
-    <div class="mt-widget" data-widget-id=1></div>
+    <!-- <div class="mt-widget" data-widget-id=1></div> -->
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -26,8 +26,62 @@
     <script src="../../dist/browser.js"></script>
 
     <script type="text/javascript">
-      mt('store', 'metisa');
-      mt('token', 'demo-token');
+    //   mt('store', 'metisa');
+    var productData = {
+        id: '5953504327',
+        name: 'Very Hungry Caterpillar',
+        brand: 'Moluk',
+        variants: [
+            {
+                id: '17634372295',
+                name: 'Blue',
+                availability: 10,
+                image_url: 'https://someimage.com/image_variant1.png',
+                url: 'https://littlellama.myshopify.com/products/the-very-hungry-caterpillar-read-play-collection?variant_id=17634372295',
+                price: "23.9",
+                price_discounted: null
+            },
+            {
+                id: '17634372231',
+                name: 'Red',
+                availability: 3,
+                image_url: 'https://someimage.com/image_variant2.png',
+                url: 'https://littlellama.myshopify.com/products/the-very-hungry-caterpillar-read-play-collection?variant_id=17634372231',
+                price: "23.9",
+                price_discounted: null
+            }
+        ]
+    };
+    var orderData = {
+        customer: {
+            id: 123,
+            first_name: "Oliver",
+            last_name: "Schwartz",
+            email: "john@hostmail.com"
+        },
+        id: 123,
+        currency: "USD",
+        line_items: [
+            {
+                variant_id: 123,
+                quantity: 1,
+                price: "199.2",
+                product_id: 456,
+                total_discount: "0.0"
+            },
+            {
+                variant_id: 124,
+                quantity: 2,
+                price: "59.2",
+                product_id: 556,
+                total_discount: "10.0"
+            }
+        ]
+    };
+
+    //mt('order', orderData);
+    mt('product', productData);
+    //mt('token', "lytPEX29vMXLwB6peDR5VOkiMRSFyl2h");
     </script>
   </body>
 </html>
