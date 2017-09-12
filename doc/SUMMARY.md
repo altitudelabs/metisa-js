@@ -1,4 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* [Browser](BROWSER.md)
+* [Basics](BASIC/README.md)
+  * [Browser](API/BROWSER.md)
