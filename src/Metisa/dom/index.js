@@ -3,13 +3,32 @@ var withIFrame = require('./withIFrame');
 var util = require('../../util');
 var compose = util.compose;
 
+/**
+  * Base class for browser environment.
+  *
+  * This is initialised and exposed to `window.Metisa` when you import through our [example](/#installation).
+  *
+  * @class
+  */
 class MetisaDom extends compose(MetisaCore)(withIFrame) {
+  /**
+   * constructor - create MetisaDom
+   *
+   * @param  {object} opts options object to be passed to MetisaCore contructor
+   * @param  {string} opts.store name of your store
+
+   * @return {class}  MetisaDom
+   */
   constructor(opts) {
-    if ($ == null) { return console.warn('Metisa Dom requires jQuery to be available!')}
+    if ($ == null) {
+      return console.warn('Metisa Dom requires jQuery to be available!');
+    }
     super(opts);
 
     console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
+
     this.renderWidget = this.renderWidget.bind(this);
+    this.registerOptions = this.registerOptions.bind(this);
 
     this.attachRegisterOptionsToWindow();
   }
@@ -18,11 +37,18 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     window.mt = this.registerOptions.bind(this);
   }
 
-  tryStart() {
-    this.renderWidget();
-    this.customIntegration();
+  registerOptions() {
+     super.registerOptions.apply(this, arguments);
+
+    if (this.isReadyToStart) {
+      this.renderWidget();
+      this.customIntegration();
+    }
   }
 
+  tracking() {
+
+  }
   renderWidget() {
     var self = this,
         widgets = $('.mt-widget');
@@ -39,7 +65,6 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
           brandname = widget.dataset.brandname,
           sessionId = widget.dataset.sessionId,
           language = widget.dataset.language,
-          xmlhttp = new XMLHttpRequest(),
           url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
 
       // Override customer, category or brand
@@ -50,41 +75,39 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
       if (sessionId) this.sessionId = sessionId;
       if (language) this.language = language;
 
-
       if (this.customerId) {
-          url += '&customer_id=' + escape(this.customerId);
+        url += '&customer_id=' + escape(this.customerId);
       }
 
       if (this.productId) {
-          url += '&product_id=' + escape(this.productId);
+        url += '&product_id=' + escape(this.productId);
       }
 
       if (this.categoryName) {
-          url += '&category_name=' + escape(this.categoryName);
+        url += '&category_name=' + escape(this.categoryName);
       }
 
       if (this.brandname) {
-          url += '&brandname=' + escape(this.brandname);
+        url += '&brandname=' + escape(this.brandname);
       }
 
       if (this.gender) {
-          url += '&gender=' + escape(this.gender);
+        url += '&gender=' + escape(this.gender);
       }
 
       if (this.sessionId) {
-          url += '&session_id=' + escape(this.sessionId);
+        url += '&session_id=' + escape(this.sessionId);
       }
 
       if (this.language) {
-          url += '&language=' + escape(this.language);
+        url += '&language=' + escape(this.language);
       }
 
       url += '&format=html';
       // Prepare iframe
       var iframe = self.createIFrameWithId(widgetId);
-
       widget.appendChild(iframe);
-
+      console.log(iframe);
       // Render loader
       var html = self.getLoaderHTML();
 
@@ -93,81 +116,47 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
       iframe.contentWindow.document.close();
 
       $.ajax({
-          type: "GET",
-          url: url,
+        type: "GET",
+        url: url,
       })
       .done(function(data, statusText, xhr){
-          // Delete loader iframe
-          var oldIFrame = document.getElementById('widget-' +
-          widgetId);
+        // Delete loader iframe
+        var oldIFrame = document.getElementById('widget-' +
+        widgetId);
 
-          var iframeParent = oldIFrame.parentNode;
+        var iframeParent = oldIFrame.parentNode;
 
-          if (iframeParent) {
-              while (iframeParent.firstChild) {
-                  iframeParent.removeChild(iframeParent.firstChild);
-              }
+        if (iframeParent) {
+          while (iframeParent.firstChild) {
+            iframeParent.removeChild(iframeParent.firstChild);
           }
+        }
 
-          // Create a new iframe for widget
-          var iframe = self.createIFrameWithId(widgetId);
-          if (xhr.status === 200) {
-              widget.appendChild(iframe);
+        // Create a new iframe for widget
+        var iframe = self.createIFrameWithId(widgetId);
+        if (xhr.status === 200) {
+          widget.appendChild(iframe);
 
-              var html = self.decodeHtmlEntities(data);
+          var html = self.decodeHtmlEntities(data);
 
-              if (html) {
-                  iframe.contentWindow.document.open();
-                  iframe.contentWindow.document.write(html);
-                  iframe.contentWindow.document.close();
+          if (html) {
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(html);
+            iframe.contentWindow.document.close();
 
-                  iframe.parentNode.style.marginBottom = '30px';
-              } else {
-                  // Html will be empty if store has run out of free sales credits.
-                  // Gracefully fail to load widget by removing the iframe from DOM.
-                  iframe.parentNode.removeChild(iframe);
-              }
+            iframe.parentNode.style.marginBottom = '30px';
           } else {
-              console.log('Error: ' + statusText);
-              // Remove iframe from DOM
-              iframe.parentNode.removeChild(iframe);
+            // Html will be empty if store has run out of free sales credits.
+            // Gracefully fail to load widget by removing the iframe from DOM.
+            iframe.parentNode.removeChild(iframe);
           }
+        } else {
+          console.log('Error: ' + statusText);
+          // Remove iframe from DOM
+          iframe.parentNode.removeChild(iframe);
+        }
       });
     }.bind(this));
-  }
-
-  customIntegration() {
-    if (this.tokenId) {
-      if (this.product) {
-        // Update product
-        // $.get(this.baseUrl+this.productEndpoint)
-        // .done(function(data) {
-        //     console.log(data);
-        // });
-      }
-      else if (this.order) {
-        var token = this.tokenId;
-        // Submit order
-        $.ajaxSetup({
-          beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader("X-CSRFToken", token);
-          }
-        });
-        $.ajax({
-          type: "POST",
-          url: this.baseUrl + this.orderEndpoint,
-          data: JSON.stringify(this.order),
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: function (msg) {
-            console.log(msg);
-          },
-          error: function (errormessage) {
-           console.log(errormessage);
-          }
-        });
-      }
-    }
   }
 
   log() {

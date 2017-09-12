@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-class Metisa {
+class MetisaCore {
   constructor(opts) {
     opts = opts || {};
     this.opts = Object.assign(
@@ -14,198 +14,57 @@ class Metisa {
     console.log(`initialised Metisa with ${JSON.stringify(this.opts)}!`);
   }
 
-  isReadyToStart() {
+  get isReadyToStart() {
     var isReady = false;
     return true;
   }
 
   registerOptions() {
+    console.log('core registerOptions');
     if (arguments[0] === 'token') {
-        // Init API token ID
-        this.log('API token ID is', arguments[1]);
-        this.tokenId = arguments[1];
-        // Init Product object
+      // Init API token ID
+      this.log('API token ID is', arguments[1]);
+      this.tokenId = arguments[1];
+      // Init Product object
     } else if (arguments[0] === 'product') {
-        this.log('Product is', arguments[1]);
-        this.product = arguments[1];
-        // Init Order object
+      this.log('Product is', arguments[1]);
+      this.product = arguments[1];
+      // Init Order object
     } else if (arguments[0] === 'order') {
-        this.log('Order is', arguments[1]);
-        this.order = arguments[1];
+      this.log('Order is', arguments[1]);
+      this.order = arguments[1];
     } else if (arguments[0] === 'store') {
-        // Init store slug
-        this.log('Store slug is', arguments[1]);
-        this.slug = arguments[1];
+      // Init store slug
+      this.log('Store slug is', arguments[1]);
+      this.slug = arguments[1];
     } else if (arguments[0] === 'customer') {
-        // Init user based recommendations
-        this.log('Customer_id is', arguments[1]);
-        this.customerId = arguments[1];
+      // Init user based recommendations
+      this.log('Customer_id is', arguments[1]);
+      this.customerId = arguments[1];
     } else if (arguments[0] === 'category') {
-        // Init category
-        this.log('Category is', arguments[1]);
-        this.categoryName = arguments[1];
+      // Init category
+      this.log('Category is', arguments[1]);
+      this.categoryName = arguments[1];
     } else if (arguments[0] === 'brand') {
-        // Init brand
-        this.log('Brand is', arguments[1]);
-        this.brandname = arguments[1];
+      // Init brand
+      this.log('Brand is', arguments[1]);
+      this.brandname = arguments[1];
     } else if (arguments[0] === 'productId') {
-        // Init product id
-        this.log('Product ID is', arguments[1]);
-        this.productId = arguments[1];
+      // Init product id
+      this.log('Product ID is', arguments[1]);
+      this.productId = arguments[1];
     } else if (arguments[0] === 'gender') {
-        // Init gender
-        this.log('Gender is', arguments[1]);
-        this.gender = arguments[1];
+      // Init gender
+      this.log('Gender is', arguments[1]);
+      this.gender = arguments[1];
     } else if (arguments[0] === 'session') {
-        // Init session
-        this.log('Session is', arguments[1])
-        this.sessionId = arguments[1];
+      // Init session
+      this.log('Session is', arguments[1])
+      this.sessionId = arguments[1];
     } else if (arguments[0] === 'language') {
-        this.log('Language is', arguments[1])
-        this.language = arguments[1];
+      this.log('Language is', arguments[1])
+      this.language = arguments[1];
     }
-    this.tryStart();
-  }
-};
-module.exports = Metisa;
-
-},{}],2:[function(require,module,exports){
-var MetisaCore = require('../core');
-var withIFrame = require('./withIFrame');
-var util = require('../../util');
-var compose = util.compose;
-
-class MetisaDom extends compose(MetisaCore)(withIFrame) {
-  constructor(opts) {
-    if ($ == null) { return console.warn('Metisa Dom requires jQuery to be available!')}
-    super(opts);
-
-    console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
-    this.renderWidget = this.renderWidget.bind(this);
-
-    this.attachRegisterOptionsToWindow();
-  }
-
-  attachRegisterOptionsToWindow() {
-    window.mt = this.registerOptions.bind(this);
-  }
-
-  tryStart() {
-    this.renderWidget();
-    this.customIntegration();
-  }
-
-  renderWidget() {
-    var self = this,
-        widgets = $('.mt-widget');
-
-    // Convert widgets nodelist to true array
-    widgets = $.makeArray(widgets);
-
-    widgets.forEach(function(widget) {
-      // Render widget using Ajax so we can gracefully degrade if there is no content available
-      var widgetId = widget.dataset.widgetId,
-          customerId = widget.dataset.customerId,
-          productId = widget.dataset.productId,
-          categoryName = widget.dataset.categoryName,
-          brandname = widget.dataset.brandname,
-          sessionId = widget.dataset.sessionId,
-          language = widget.dataset.language,
-          xmlhttp = new XMLHttpRequest(),
-          url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
-
-      // Override customer, category or brand
-      if (customerId) this.customerId = customerId;
-      if (productId) this.productId = productId;
-      if (categoryName) this.categoryName = categoryName;
-      if (brandname) this.brandname = brandname;
-      if (sessionId) this.sessionId = sessionId;
-      if (language) this.language = language;
-
-
-      if (this.customerId) {
-          url += '&customer_id=' + escape(this.customerId);
-      }
-
-      if (this.productId) {
-          url += '&product_id=' + escape(this.productId);
-      }
-
-      if (this.categoryName) {
-          url += '&category_name=' + escape(this.categoryName);
-      }
-
-      if (this.brandname) {
-          url += '&brandname=' + escape(this.brandname);
-      }
-
-      if (this.gender) {
-          url += '&gender=' + escape(this.gender);
-      }
-
-      if (this.sessionId) {
-          url += '&session_id=' + escape(this.sessionId);
-      }
-
-      if (this.language) {
-          url += '&language=' + escape(this.language);
-      }
-
-      url += '&format=html';
-      // Prepare iframe
-      var iframe = self.createIFrameWithId(widgetId);
-
-      widget.appendChild(iframe);
-
-      // Render loader
-      var html = self.getLoaderHTML();
-
-      iframe.contentWindow.document.open();
-      iframe.contentWindow.document.write(html);
-      iframe.contentWindow.document.close();
-
-      $.ajax({
-          type: "GET",
-          url: url,
-      })
-      .done(function(data, statusText, xhr){
-          // Delete loader iframe
-          var oldIFrame = document.getElementById('widget-' +
-          widgetId);
-
-          var iframeParent = oldIFrame.parentNode;
-
-          if (iframeParent) {
-              while (iframeParent.firstChild) {
-                  iframeParent.removeChild(iframeParent.firstChild);
-              }
-          }
-
-          // Create a new iframe for widget
-          var iframe = self.createIFrameWithId(widgetId);
-          if (xhr.status === 200) {
-              widget.appendChild(iframe);
-
-              var html = self.decodeHtmlEntities(data);
-
-              if (html) {
-                  iframe.contentWindow.document.open();
-                  iframe.contentWindow.document.write(html);
-                  iframe.contentWindow.document.close();
-
-                  iframe.parentNode.style.marginBottom = '30px';
-              } else {
-                  // Html will be empty if store has run out of free sales credits.
-                  // Gracefully fail to load widget by removing the iframe from DOM.
-                  iframe.parentNode.removeChild(iframe);
-              }
-          } else {
-              console.log('Error: ' + statusText);
-              // Remove iframe from DOM
-              iframe.parentNode.removeChild(iframe);
-          }
-      });
-    }.bind(this));
   }
 
   customIntegration() {
@@ -240,6 +99,170 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
         });
       }
     }
+  }
+};
+module.exports = Metisa;
+
+},{}],2:[function(require,module,exports){
+var MetisaCore = require('../core');
+var withIFrame = require('./withIFrame');
+var util = require('../../util');
+var compose = util.compose;
+
+/**
+  * Base class for browser environment.
+  *
+  * This is initialised and exposed to `window.Metisa` when you import through our [example](/#installation).
+  *
+  * @class
+  */
+class MetisaDom extends compose(MetisaCore)(withIFrame) {
+  /**
+   * constructor - create MetisaDom
+   *
+   * @param  {object} opts options object to be passed to MetisaCore contructor
+   * @param  {string} opts.store name of your store
+
+   * @return {class}  MetisaDom
+   */
+  constructor(opts) {
+    if ($ == null) {
+      return console.warn('Metisa Dom requires jQuery to be available!');
+    }
+    super(opts);
+
+    console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
+
+    this.renderWidget = this.renderWidget.bind(this);
+    this.registerOptions = this.registerOptions.bind(this);
+
+    this.attachRegisterOptionsToWindow();
+  }
+
+  attachRegisterOptionsToWindow() {
+    window.mt = this.registerOptions.bind(this);
+  }
+
+  registerOptions() {
+     super.registerOptions.apply(this, arguments);
+
+    if (this.isReadyToStart) {
+      this.renderWidget();
+      this.customIntegration();
+    }
+  }
+
+  tracking() {
+
+  }
+  renderWidget() {
+    var self = this,
+        widgets = $('.mt-widget');
+
+    // Convert widgets nodelist to true array
+    widgets = $.makeArray(widgets);
+
+    widgets.forEach(function(widget) {
+      // Render widget using Ajax so we can gracefully degrade if there is no content available
+      var widgetId = widget.dataset.widgetId,
+          customerId = widget.dataset.customerId,
+          productId = widget.dataset.productId,
+          categoryName = widget.dataset.categoryName,
+          brandname = widget.dataset.brandname,
+          sessionId = widget.dataset.sessionId,
+          language = widget.dataset.language,
+          url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
+
+      // Override customer, category or brand
+      if (customerId) this.customerId = customerId;
+      if (productId) this.productId = productId;
+      if (categoryName) this.categoryName = categoryName;
+      if (brandname) this.brandname = brandname;
+      if (sessionId) this.sessionId = sessionId;
+      if (language) this.language = language;
+
+      if (this.customerId) {
+        url += '&customer_id=' + escape(this.customerId);
+      }
+
+      if (this.productId) {
+        url += '&product_id=' + escape(this.productId);
+      }
+
+      if (this.categoryName) {
+        url += '&category_name=' + escape(this.categoryName);
+      }
+
+      if (this.brandname) {
+        url += '&brandname=' + escape(this.brandname);
+      }
+
+      if (this.gender) {
+        url += '&gender=' + escape(this.gender);
+      }
+
+      if (this.sessionId) {
+        url += '&session_id=' + escape(this.sessionId);
+      }
+
+      if (this.language) {
+        url += '&language=' + escape(this.language);
+      }
+
+      url += '&format=html';
+      // Prepare iframe
+      var iframe = self.createIFrameWithId(widgetId);
+      widget.appendChild(iframe);
+      console.log(iframe);
+      // Render loader
+      var html = self.getLoaderHTML();
+
+      iframe.contentWindow.document.open();
+      iframe.contentWindow.document.write(html);
+      iframe.contentWindow.document.close();
+
+      $.ajax({
+        type: "GET",
+        url: url,
+      })
+      .done(function(data, statusText, xhr){
+        // Delete loader iframe
+        var oldIFrame = document.getElementById('widget-' +
+        widgetId);
+
+        var iframeParent = oldIFrame.parentNode;
+
+        if (iframeParent) {
+          while (iframeParent.firstChild) {
+            iframeParent.removeChild(iframeParent.firstChild);
+          }
+        }
+
+        // Create a new iframe for widget
+        var iframe = self.createIFrameWithId(widgetId);
+        if (xhr.status === 200) {
+          widget.appendChild(iframe);
+
+          var html = self.decodeHtmlEntities(data);
+
+          if (html) {
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(html);
+            iframe.contentWindow.document.close();
+
+            iframe.parentNode.style.marginBottom = '30px';
+          } else {
+            // Html will be empty if store has run out of free sales credits.
+            // Gracefully fail to load widget by removing the iframe from DOM.
+            iframe.parentNode.removeChild(iframe);
+          }
+        } else {
+          console.log('Error: ' + statusText);
+          // Remove iframe from DOM
+          iframe.parentNode.removeChild(iframe);
+        }
+      });
+    }.bind(this));
   }
 
   log() {
