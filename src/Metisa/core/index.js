@@ -1,11 +1,11 @@
-class MetisaCore {
+class Metisa {
   constructor(opts) {
     opts = opts || {};
     this.opts = Object.assign(
       {
         baseUrl: 'https://askmetisa.com/',
-        productEndpoint: "metisa/api/v1/product",
-        orderEndpoint: "metisa/api/v1/order",
+        productEndpoint: "/api/v1/product-collection",
+        orderEndpoint: "/api/v1/order-transaction",
       },
       opts
     );
@@ -19,17 +19,16 @@ class MetisaCore {
   }
 
   registerOptions() {
-    console.log('core registerOptions');
-    if (arguments[0] === 'token') {
-      // Init API token ID
-      this.log('API token ID is', arguments[1]);
-      this.tokenId = arguments[1];
-      // Init Product object
+    if (arguments[0] === 'baseUrl') {
+      // Init Base URL for testing
+      this.log('Base URL is', arguments[1]);
+      this.opts.baseUrl = arguments[1]; // override
     } else if (arguments[0] === 'product') {
+      // Init Product object
       this.log('Product is', arguments[1]);
       this.product = arguments[1];
-      // Init Order object
     } else if (arguments[0] === 'order') {
+      // Init Order object
       this.log('Order is', arguments[1]);
       this.order = arguments[1];
     } else if (arguments[0] === 'store') {
@@ -63,40 +62,6 @@ class MetisaCore {
     } else if (arguments[0] === 'language') {
       this.log('Language is', arguments[1])
       this.language = arguments[1];
-    }
-  }
-
-  customIntegration() {
-    if (this.tokenId) {
-      if (this.product) {
-        // Update product
-        // $.get(this.baseUrl+this.productEndpoint)
-        // .done(function(data) {
-        //     console.log(data);
-        // });
-      }
-      else if (this.order) {
-        var token = this.tokenId;
-        // Submit order
-        $.ajaxSetup({
-          beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader("X-CSRFToken", token);
-          }
-        });
-        $.ajax({
-          type: "POST",
-          url: this.baseUrl + this.orderEndpoint,
-          data: JSON.stringify(this.order),
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: function (msg) {
-            console.log(msg);
-          },
-          error: function (errormessage) {
-           console.log(errormessage);
-          }
-        });
-      }
     }
   }
 };
