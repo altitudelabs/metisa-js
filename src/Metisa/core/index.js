@@ -1,4 +1,4 @@
-class Metisa {
+class MetisaCore {
   constructor(opts) {
     opts = opts || {};
     this.opts = Object.assign(

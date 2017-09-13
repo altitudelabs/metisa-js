@@ -1,6 +1,7 @@
 ## Basics
 
 Metisa has two main functions:
+
 * [Tracking](#tracking)
 * [Recommendation](#recommendaton)
 
@@ -17,6 +18,8 @@ Metisa tracks your users' behaviour or purchases in order to come up with better
 
 ##### Recommendation
 
+Once the tracking is set up, Metisa can now start feeding personalised recommendations for your users.
+
 ```html
 <!-- Place wherever you want the widget to be rendered -->
 <div class="mt-widget" data-widget-id=9423></div>
@@ -25,5 +28,3 @@ Metisa tracks your users' behaviour or purchases in order to come up with better
   mt('store', yourMetisaAccountSlug);
 </script>
 ```
-
-Once the tracking is set up, Metisa can now start feeding personalised recommendations for your users.
