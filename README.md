@@ -2,7 +2,7 @@
 
 _JS sdk for Metisa API_
 
-You can find our official documentation [here](https://altitudelabs.github.io/metisa-js/)
+You can find our official documentation [here](https://altitudelabs.github.io/metisa-js/doc/)
 
 **Supports:**
 - Browser
@@ -46,11 +46,12 @@ You can find our official documentation [here](https://altitudelabs.github.io/me
 |   |   content for script tag
 ├── builders
 |   contains scripts to build files into /dist
-├── deploy
-|   deploy scripts
 ├── doc
 |   Documentation for Metisa javascript sdk.
 |   This directory will be used to deploy documentation to Github pages
+├── gh-page
+|   Directory deployed to Github Pages
+|   contains `/doc` and `/demo-store`
 ```
 
 **Run it locally**
@@ -79,8 +80,8 @@ Refresh the browser to see the reflected change
 
 Prerequisite for this is [Gitbook CLI](https://www.npmjs.com/package/gitbook-cli)
 
-After updating documentation under `/doc`, you can deploy by simply running
+After updating contents inside `/gh-page`, you can deploy by simply running
 ```
-npm run deploy-doc
+npm run deploy-gh-page
 ```
-You will be able to see the reflected changes [here](https://altitudelabs.github.io/metisa-js/).
+You will be able to see the documentation [here](https://altitudelabs.github.io/metisa-js/doc/), and the demo store [here](https://altitudelabs.github.io/metisa-js/demo-store/)

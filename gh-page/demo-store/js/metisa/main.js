@@ -1,0 +1,2 @@
+mt('slug', 'demo');
+

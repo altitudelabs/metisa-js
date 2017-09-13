@@ -21,7 +21,7 @@ class Metisa {
   constructor(opts) {
     opts = opts || {};
     this.opts = Object.assign(
-    {
+      {
         baseUrl: 'https://askmetisa.com/',
         itemEndpoint: "/api/v1/product-collection",
         actionEndpoint: "/api/v1/order-transaction",
