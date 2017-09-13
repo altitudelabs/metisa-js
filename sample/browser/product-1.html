@@ -20,5 +20,34 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
     <script src="../../dist/browser.js"></script>
+    <script type="text/javascript">
+      var productData = {
+          id: '5953504327',
+          name: 'Very Hungry Caterpillar',
+          brand: 'Moluk',
+          variants: [
+              {
+                  id: '17634372295',
+                  name: 'Blue',
+                  availability: 10,
+                  image_url: 'https://someimage.com/image_variant1.png',
+                  url: 'https://littlellama.myshopify.com/products/the-very-hungry-caterpillar-read-play-collection?variant_id=17634372295',
+                  price: "23.9",
+                  price_discounted: null
+              },
+              {
+                  id: '17634372231',
+                  name: 'Red',
+                  availability: 3,
+                  image_url: 'https://someimage.com/image_variant2.png',
+                  url: 'https://littlellama.myshopify.com/products/the-very-hungry-caterpillar-read-play-collection?variant_id=17634372231',
+                  price: "23.9",
+                  price_discounted: null
+              }
+          ]
+      };
+      mt('store', 'zalora');
+      mt('product', productData);
+    </script>
   </body>
 </html>

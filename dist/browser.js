@@ -5,8 +5,8 @@ class Metisa {
     this.opts = Object.assign(
       {
         baseUrl: 'https://askmetisa.com/',
-        productEndpoint: "metisa/api/v1/product-collection",
-        orderEndpoint: "metisa/api/v1/order-transaction",
+        productEndpoint: "/api/v1/product-collection",
+        orderEndpoint: "/api/v1/order-transaction",
       },
       opts
     );
@@ -14,55 +14,55 @@ class Metisa {
     console.log(`initialised Metisa with ${JSON.stringify(this.opts)}!`);
   }
 
-  isReadyToStart() {
+  get isReadyToStart() {
     var isReady = false;
     return true;
   }
 
   registerOptions() {
-    if (arguments[0] === 'token') {
-        // Init API token ID
-        this.log('API token ID is', arguments[1]);
-        this.tokenId = arguments[1];
-        // Init Product object
+    if (arguments[0] === 'baseUrl') {
+      // Init Base URL for testing
+      this.log('Base URL is', arguments[1]);
+      this.opts.baseUrl = arguments[1]; // override
     } else if (arguments[0] === 'product') {
-        this.log('Product is', arguments[1]);
-        this.product = arguments[1];
-        // Init Order object
+      // Init Product object
+      this.log('Product is', arguments[1]);
+      this.product = arguments[1];
     } else if (arguments[0] === 'order') {
-        this.log('Order is', arguments[1]);
-        this.order = arguments[1];
+      // Init Order object
+      this.log('Order is', arguments[1]);
+      this.order = arguments[1];
     } else if (arguments[0] === 'store') {
-        // Init store slug
-        this.log('Store slug is', arguments[1]);
-        this.slug = arguments[1];
+      // Init store slug
+      this.log('Store slug is', arguments[1]);
+      this.slug = arguments[1];
     } else if (arguments[0] === 'customer') {
-        // Init user based recommendations
-        this.log('Customer_id is', arguments[1]);
-        this.customerId = arguments[1];
+      // Init user based recommendations
+      this.log('Customer_id is', arguments[1]);
+      this.customerId = arguments[1];
     } else if (arguments[0] === 'category') {
-        // Init category
-        this.log('Category is', arguments[1]);
-        this.categoryName = arguments[1];
+      // Init category
+      this.log('Category is', arguments[1]);
+      this.categoryName = arguments[1];
     } else if (arguments[0] === 'brand') {
-        // Init brand
-        this.log('Brand is', arguments[1]);
-        this.brandname = arguments[1];
+      // Init brand
+      this.log('Brand is', arguments[1]);
+      this.brandname = arguments[1];
     } else if (arguments[0] === 'productId') {
-        // Init product id
-        this.log('Product ID is', arguments[1]);
-        this.productId = arguments[1];
+      // Init product id
+      this.log('Product ID is', arguments[1]);
+      this.productId = arguments[1];
     } else if (arguments[0] === 'gender') {
-        // Init gender
-        this.log('Gender is', arguments[1]);
-        this.gender = arguments[1];
+      // Init gender
+      this.log('Gender is', arguments[1]);
+      this.gender = arguments[1];
     } else if (arguments[0] === 'session') {
-        // Init session
-        this.log('Session is', arguments[1])
-        this.sessionId = arguments[1];
+      // Init session
+      this.log('Session is', arguments[1])
+      this.sessionId = arguments[1];
     } else if (arguments[0] === 'language') {
-        this.log('Language is', arguments[1])
-        this.language = arguments[1];
+      this.log('Language is', arguments[1])
+      this.language = arguments[1];
     }
   }
 };
@@ -86,25 +86,24 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
    * constructor - create MetisaDom
    *
    * @param  {object} opts options object to be passed to MetisaCore contructor
-   * @param  {string} opts.store name of your store
 
    * @return {class}  MetisaDom
    */
   constructor(opts) {
-      if ($ == null) {
-          return console.warn('Metisa Dom requires jQuery to be available!')
-      }
-      super(opts);
+    if ($ == null) {
+      return console.warn('Metisa Dom requires jQuery to be available!')
+    }
+    super(opts);
 
-      console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
-      this.renderWidget = this.renderWidget.bind(this);
-      this.registerOptions = this.registerOptions.bind(this);
+    console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
+    this.renderWidget = this.renderWidget.bind(this);
+    this.registerOptions = this.registerOptions.bind(this);
 
-      this.attachRegisterOptionsToWindow();
+    this.attachRegisterOptionsToWindow();
   }
 
   attachRegisterOptionsToWindow() {
-      window.mt = this.registerOptions;
+    window.mt = this.registerOptions;
   }
 
   registerOptions() {
@@ -112,13 +111,20 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
 
     if (this.isReadyToStart) {
       this.renderWidget();
-      this.customIntegration();
+      if (this.slug) {
+        if (this.product) {
+          this.track('product', this.product);
+        }
+        else if(this.order) {
+          this.track('order', this.order);
+        }
+      }
     }
   }
 
   renderWidget() {
     var self = this,
-        widgets = $('.mt-widget');
+      widgets = $('.mt-widget');
 
     // Convert widgets nodelist to true array
     widgets = $.makeArray(widgets);
@@ -126,13 +132,13 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     widgets.forEach(function(widget) {
       // Render widget using Ajax so we can gracefully degrade if there is no content available
       var widgetId = widget.dataset.widgetId,
-          customerId = widget.dataset.customerId,
-          productId = widget.dataset.productId,
-          categoryName = widget.dataset.categoryName,
-          brandname = widget.dataset.brandname,
-          sessionId = widget.dataset.sessionId,
-          language = widget.dataset.language,
-          url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
+        customerId = widget.dataset.customerId,
+        productId = widget.dataset.productId,
+        categoryName = widget.dataset.categoryName,
+        brandname = widget.dataset.brandname,
+        sessionId = widget.dataset.sessionId,
+        language = widget.dataset.language,
+        url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
 
       // Override customer, category or brand
       if (customerId) this.customerId = customerId;
@@ -226,39 +232,65 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     }.bind(this));
   }
 
-  customIntegration() {
-    if (this.tokenId) {
-      var url, data;
-      if (this.product) {
-        // Update product
-        url = this.opts.baseUrl + this.opts.productEndpoint;
-        data = this.product;
-      } else if (this.order) {
-        // Submit order
-        url = this.opts.baseUrl + this.opts.orderEndpoint;
-        data = this.order;
+  track(cat, data) {
+    if (this.slug) {
+      if (cat === 'product') {
+        this.createOrUpdateProduct(data);
       }
-      $.ajax({
-        type: 'POST',
-        url: url,
-        data: JSON.stringify(data),
-        beforeSend: function(xhr, settings) {
-          xhr.setRequestHeader('X-CSRFToken', this.tokenId);
-          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        },
-        statusCode: {
-          500: function(data, statusText, xhr) {
-            console.log('Internal server error');
-          },
-        },
-        success: function (data, statusText, xhr) {
-          console.log('Success');
-        },
-        error: function (data, statusText, xhr) {
-          console.log('Error: '+xhr);
-        }
-      });
+      else if (cat === 'order') {
+        this.submitOrUpdateOrder(data);
+      }
     }
+  }
+
+  createOrUpdateProduct(data) {
+    // create product if it does not exist in the db
+    // ow, update the product
+    var url = this.opts.baseUrl + this.slug + this.opts.productEndpoint;
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      beforeSend: function(xhr, settings) {
+          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      },
+      statusCode: {
+          500: function(data, statusText, xhr) {
+              console.log('Internal server error');
+          },
+      },
+      success: function (data, statusText, xhr) {
+          console.log('Success');
+      },
+      error: function (data, statusText, xhr) {
+          console.log('Error: '+xhr);
+      }
+    });
+  }
+
+  submitOrUpdateOrder(data) {
+    // submit order if it does not exist in the db
+    // ow, update the order
+    var url = this.opts.baseUrl + this.slug + this.opts.orderEndpoint;
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      beforeSend: function(xhr, settings) {
+          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      },
+      statusCode: {
+          500: function(data, statusText, xhr) {
+              console.log('Internal server error');
+          },
+      },
+      success: function (data, statusText, xhr) {
+          console.log('Success');
+      },
+      error: function (data, statusText, xhr) {
+          console.log('Error: '+xhr);
+      }
+    });
   }
 
   log() {
@@ -298,183 +330,183 @@ module.exports = function(composedClass) {
       return str.replace(/&#?(\w+);/g, function(match, dec) {
         if (isNaN(dec)) {
           var chars = {
-              quot: 34,
-              amp: 38,
-              lt: 60,
-              gt: 62,
-              nbsp: 160,
-              copy: 169,
-              reg: 174,
-              deg: 176,
-              frasl: 47,
-              trade: 8482,
-              euro: 8364,
-              Agrave: 192,
-              Aacute: 193,
-              Acirc: 194,
-              Atilde: 195,
-              Auml: 196,
-              Aring: 197,
-              AElig: 198,
-              Ccedil: 199,
-              Egrave: 200,
-              Eacute: 201,
-              Ecirc: 202,
-              Euml: 203,
-              Igrave: 204,
-              Iacute: 205,
-              Icirc: 206,
-              Iuml: 207,
-              ETH: 208,
-              Ntilde: 209,
-              Ograve: 210,
-              Oacute: 211,
-              Ocirc: 212,
-              Otilde: 213,
-              Ouml: 214,
-              times: 215,
-              Oslash: 216,
-              Ugrave: 217,
-              Uacute: 218,
-              Ucirc: 219,
-              Uuml: 220,
-              Yacute: 221,
-              THORN: 222,
-              szlig: 223,
-              agrave: 224,
-              aacute: 225,
-              acirc: 226,
-              atilde: 227,
-              auml: 228,
-              aring: 229,
-              aelig: 230,
-              ccedil: 231,
-              egrave: 232,
-              eacute: 233,
-              ecirc: 234,
-              euml: 235,
-              igrave: 236,
-              iacute: 237,
-              icirc: 238,
-              iuml: 239,
-              eth: 240,
-              ntilde: 241,
-              ograve: 242,
-              oacute: 243,
-              ocirc: 244,
-              otilde: 245,
-              ouml: 246,
-              divide: 247,
-              oslash: 248,
-              ugrave: 249,
-              uacute: 250,
-              ucirc: 251,
-              uuml: 252,
-              yacute: 253,
-              thorn: 254,
-              yuml: 255,
-              lsquo: 8216,
-              rsquo: 8217,
-              sbquo: 8218,
-              ldquo: 8220,
-              rdquo: 8221,
-              bdquo: 8222,
-              dagger: 8224,
-              Dagger: 8225,
-              permil: 8240,
-              lsaquo: 8249,
-              rsaquo: 8250,
-              spades: 9824,
-              clubs: 9827,
-              hearts: 9829,
-              diams: 9830,
-              oline: 8254,
-              larr: 8592,
-              uarr: 8593,
-              rarr: 8594,
-              darr: 8595,
-              hellip: 133,
-              ndash: 150,
-              mdash: 151,
-              iexcl: 161,
-              cent: 162,
-              pound: 163,
-              curren: 164,
-              yen: 165,
-              brvbar: 166,
-              brkbar: 166,
-              sect: 167,
-              uml: 168,
-              die: 168,
-              ordf: 170,
-              laquo: 171,
-              not: 172,
-              shy: 173,
-              macr: 175,
-              hibar: 175,
-              plusmn: 177,
-              sup2: 178,
-              sup3: 179,
-              acute: 180,
-              micro: 181,
-              para: 182,
-              middot: 183,
-              cedil: 184,
-              sup1: 185,
-              ordm: 186,
-              raquo: 187,
-              frac14: 188,
-              frac12: 189,
-              frac34: 190,
-              iquest: 191,
-              Alpha: 913,
-              alpha: 945,
-              Beta: 914,
-              beta: 946,
-              Gamma: 915,
-              gamma: 947,
-              Delta: 916,
-              delta: 948,
-              Epsilon: 917,
-              epsilon: 949,
-              Zeta: 918,
-              zeta: 950,
-              Eta: 919,
-              eta: 951,
-              Theta: 920,
-              theta: 952,
-              Iota: 921,
-              iota: 953,
-              Kappa: 922,
-              kappa: 954,
-              Lambda: 923,
-              lambda: 955,
-              Mu: 924,
-              mu: 956,
-              Nu: 925,
-              nu: 957,
-              Xi: 926,
-              xi: 958,
-              Omicron: 927,
-              omicron: 959,
-              Pi: 928,
-              pi: 960,
-              Rho: 929,
-              rho: 961,
-              Sigma: 931,
-              sigma: 963,
-              Tau: 932,
-              tau: 964,
-              Upsilon: 933,
-              upsilon: 965,
-              Phi: 934,
-              phi: 966,
-              Chi: 935,
-              chi: 967,
-              Psi: 936,
-              psi: 968,
-              Omega: 937,
-              omega: 969
+            quot: 34,
+            amp: 38,
+            lt: 60,
+            gt: 62,
+            nbsp: 160,
+            copy: 169,
+            reg: 174,
+            deg: 176,
+            frasl: 47,
+            trade: 8482,
+            euro: 8364,
+            Agrave: 192,
+            Aacute: 193,
+            Acirc: 194,
+            Atilde: 195,
+            Auml: 196,
+            Aring: 197,
+            AElig: 198,
+            Ccedil: 199,
+            Egrave: 200,
+            Eacute: 201,
+            Ecirc: 202,
+            Euml: 203,
+            Igrave: 204,
+            Iacute: 205,
+            Icirc: 206,
+            Iuml: 207,
+            ETH: 208,
+            Ntilde: 209,
+            Ograve: 210,
+            Oacute: 211,
+            Ocirc: 212,
+            Otilde: 213,
+            Ouml: 214,
+            times: 215,
+            Oslash: 216,
+            Ugrave: 217,
+            Uacute: 218,
+            Ucirc: 219,
+            Uuml: 220,
+            Yacute: 221,
+            THORN: 222,
+            szlig: 223,
+            agrave: 224,
+            aacute: 225,
+            acirc: 226,
+            atilde: 227,
+            auml: 228,
+            aring: 229,
+            aelig: 230,
+            ccedil: 231,
+            egrave: 232,
+            eacute: 233,
+            ecirc: 234,
+            euml: 235,
+            igrave: 236,
+            iacute: 237,
+            icirc: 238,
+            iuml: 239,
+            eth: 240,
+            ntilde: 241,
+            ograve: 242,
+            oacute: 243,
+            ocirc: 244,
+            otilde: 245,
+            ouml: 246,
+            divide: 247,
+            oslash: 248,
+            ugrave: 249,
+            uacute: 250,
+            ucirc: 251,
+            uuml: 252,
+            yacute: 253,
+            thorn: 254,
+            yuml: 255,
+            lsquo: 8216,
+            rsquo: 8217,
+            sbquo: 8218,
+            ldquo: 8220,
+            rdquo: 8221,
+            bdquo: 8222,
+            dagger: 8224,
+            Dagger: 8225,
+            permil: 8240,
+            lsaquo: 8249,
+            rsaquo: 8250,
+            spades: 9824,
+            clubs: 9827,
+            hearts: 9829,
+            diams: 9830,
+            oline: 8254,
+            larr: 8592,
+            uarr: 8593,
+            rarr: 8594,
+            darr: 8595,
+            hellip: 133,
+            ndash: 150,
+            mdash: 151,
+            iexcl: 161,
+            cent: 162,
+            pound: 163,
+            curren: 164,
+            yen: 165,
+            brvbar: 166,
+            brkbar: 166,
+            sect: 167,
+            uml: 168,
+            die: 168,
+            ordf: 170,
+            laquo: 171,
+            not: 172,
+            shy: 173,
+            macr: 175,
+            hibar: 175,
+            plusmn: 177,
+            sup2: 178,
+            sup3: 179,
+            acute: 180,
+            micro: 181,
+            para: 182,
+            middot: 183,
+            cedil: 184,
+            sup1: 185,
+            ordm: 186,
+            raquo: 187,
+            frac14: 188,
+            frac12: 189,
+            frac34: 190,
+            iquest: 191,
+            Alpha: 913,
+            alpha: 945,
+            Beta: 914,
+            beta: 946,
+            Gamma: 915,
+            gamma: 947,
+            Delta: 916,
+            delta: 948,
+            Epsilon: 917,
+            epsilon: 949,
+            Zeta: 918,
+            zeta: 950,
+            Eta: 919,
+            eta: 951,
+            Theta: 920,
+            theta: 952,
+            Iota: 921,
+            iota: 953,
+            Kappa: 922,
+            kappa: 954,
+            Lambda: 923,
+            lambda: 955,
+            Mu: 924,
+            mu: 956,
+            Nu: 925,
+            nu: 957,
+            Xi: 926,
+            xi: 958,
+            Omicron: 927,
+            omicron: 959,
+            Pi: 928,
+            pi: 960,
+            Rho: 929,
+            rho: 961,
+            Sigma: 931,
+            sigma: 963,
+            Tau: 932,
+            tau: 964,
+            Upsilon: 933,
+            upsilon: 965,
+            Phi: 934,
+            phi: 966,
+            Chi: 935,
+            chi: 967,
+            Psi: 936,
+            psi: 968,
+            Omega: 937,
+            omega: 969
           };
 
           if (chars[dec] !== undefined) {
