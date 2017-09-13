@@ -15,25 +15,24 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
    * constructor - create MetisaDom
    *
    * @param  {object} opts options object to be passed to MetisaCore contructor
-   * @param  {string} opts.store name of your store
 
    * @return {class}  MetisaDom
    */
   constructor(opts) {
-      if ($ == null) {
-          return console.warn('Metisa Dom requires jQuery to be available!')
-      }
-      super(opts);
+    if ($ == null) {
+      return console.warn('Metisa Dom requires jQuery to be available!')
+    }
+    super(opts);
 
-      console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
-      this.renderWidget = this.renderWidget.bind(this);
-      this.registerOptions = this.registerOptions.bind(this);
+    console.log(`initialised Metisa Dom with ${JSON.stringify(this.opts)}!`);
+    this.renderWidget = this.renderWidget.bind(this);
+    this.registerOptions = this.registerOptions.bind(this);
 
-      this.attachRegisterOptionsToWindow();
+    this.attachRegisterOptionsToWindow();
   }
 
   attachRegisterOptionsToWindow() {
-      window.mt = this.registerOptions;
+    window.mt = this.registerOptions;
   }
 
   registerOptions() {
@@ -41,13 +40,20 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
 
     if (this.isReadyToStart) {
       this.renderWidget();
-      this.customIntegration();
+      if (this.slug) {
+        if (this.product) {
+          this.track('product', this.product);
+        }
+        else if(this.order) {
+          this.track('order', this.order);
+        }
+      }
     }
   }
 
   renderWidget() {
     var self = this,
-        widgets = $('.mt-widget');
+      widgets = $('.mt-widget');
 
     // Convert widgets nodelist to true array
     widgets = $.makeArray(widgets);
@@ -55,13 +61,13 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     widgets.forEach(function(widget) {
       // Render widget using Ajax so we can gracefully degrade if there is no content available
       var widgetId = widget.dataset.widgetId,
-          customerId = widget.dataset.customerId,
-          productId = widget.dataset.productId,
-          categoryName = widget.dataset.categoryName,
-          brandname = widget.dataset.brandname,
-          sessionId = widget.dataset.sessionId,
-          language = widget.dataset.language,
-          url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
+        customerId = widget.dataset.customerId,
+        productId = widget.dataset.productId,
+        categoryName = widget.dataset.categoryName,
+        brandname = widget.dataset.brandname,
+        sessionId = widget.dataset.sessionId,
+        language = widget.dataset.language,
+        url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
 
       // Override customer, category or brand
       if (customerId) this.customerId = customerId;
@@ -155,39 +161,65 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     }.bind(this));
   }
 
-  customIntegration() {
-    if (this.tokenId) {
-      var url, data;
-      if (this.product) {
-        // Update product
-        url = this.opts.baseUrl + this.opts.productEndpoint;
-        data = this.product;
-      } else if (this.order) {
-        // Submit order
-        url = this.opts.baseUrl + this.opts.orderEndpoint;
-        data = this.order;
+  track(cat, data) {
+    if (this.slug) {
+      if (cat === 'product') {
+        this.createOrUpdateProduct(data);
       }
-      $.ajax({
-        type: 'POST',
-        url: url,
-        data: JSON.stringify(data),
-        beforeSend: function(xhr, settings) {
-          xhr.setRequestHeader('X-CSRFToken', this.tokenId);
-          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        },
-        statusCode: {
-          500: function(data, statusText, xhr) {
-            console.log('Internal server error');
-          },
-        },
-        success: function (data, statusText, xhr) {
-          console.log('Success');
-        },
-        error: function (data, statusText, xhr) {
-          console.log('Error: '+xhr);
-        }
-      });
+      else if (cat === 'order') {
+        this.submitOrUpdateOrder(data);
+      }
     }
+  }
+
+  createOrUpdateProduct(data) {
+    // create product if it does not exist in the db
+    // ow, update the product
+    var url = this.opts.baseUrl + this.slug + this.opts.productEndpoint;
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      beforeSend: function(xhr, settings) {
+          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      },
+      statusCode: {
+          500: function(data, statusText, xhr) {
+              console.log('Internal server error');
+          },
+      },
+      success: function (data, statusText, xhr) {
+          console.log('Success');
+      },
+      error: function (data, statusText, xhr) {
+          console.log('Error: '+xhr);
+      }
+    });
+  }
+
+  submitOrUpdateOrder(data) {
+    // submit order if it does not exist in the db
+    // ow, update the order
+    var url = this.opts.baseUrl + this.slug + this.opts.orderEndpoint;
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(data),
+      beforeSend: function(xhr, settings) {
+          xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      },
+      statusCode: {
+          500: function(data, statusText, xhr) {
+              console.log('Internal server error');
+          },
+      },
+      success: function (data, statusText, xhr) {
+          console.log('Success');
+      },
+      error: function (data, statusText, xhr) {
+          console.log('Error: '+xhr);
+      }
+    });
   }
 
   log() {
