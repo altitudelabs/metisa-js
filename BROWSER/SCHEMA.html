@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Data schema · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../API.html" />
+    
+    
+    <link rel="prev" href="BROWSER.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../BASIC/">
+            
+                <a href="../BASIC/">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="BROWSER.html">
+            
+                <a href="BROWSER.html">
+            
+                    
+                    Browser
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="SCHEMA.html">
+            
+                <a href="SCHEMA.html">
+            
+                    
+                    Data schema
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../API.html">
+            
+                <a href="../API.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Data schema</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="data-schema-for-api-endpoints"><a name="data-schema-for-api-endpoints" class="plugin-anchor" href="#data-schema-for-api-endpoints"><i class="fa fa-link" aria-hidden="true"></i></a>Data schema for API endpoints</h2>
+<p>Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Product and Order endpoints are detailed below.</p>
+<h3 id="product-data"><a name="product-data" class="plugin-anchor" href="#product-data"><i class="fa fa-link" aria-hidden="true"></i></a>Product data</h3>
+<p>Product information can be tricky, because different e-commerce platforms save products and their variants differently.</p>
+<p>In Metisa, we save product variants instead of the product itself. This means there is a specific way to send data about products with and without variants.</p>
+<h5 id="example-1-product-with-variants"><a name="example-1-product-with-variants" class="plugin-anchor" href="#example-1-product-with-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product with variants</h5>
+<p>For example, if a product has 2 variants, say a pair of shoes with Blue and Green color options, the data object would look like this.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> productData = {
+  id: <span class="hljs-string">&apos;81923681&apos;</span>,
+  name: <span class="hljs-string">&apos;Running Shoes&apos;</span>,
+  brand: <span class="hljs-string">&apos;Nike&apos;</span>,
+  variants: [
+    {
+      id: <span class="hljs-string">&apos;5953504327&apos;</span>,
+      name: <span class="hljs-string">&apos;Blue&apos;</span>,
+      availability: <span class="hljs-number">10</span>,
+      image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-blue.png&apos;</span>,
+      url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504327&apos;</span>,
+      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    },
+    {
+      id: <span class="hljs-string">&apos;5953504331&apos;</span>,
+      name: <span class="hljs-string">&apos;Green&apos;</span>,
+      availability: <span class="hljs-number">3</span>,
+      image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-green.png&apos;</span>,
+      url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504331&apos;</span>,
+      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<h5 id="example-2-product-with-no-variants"><a name="example-2-product-with-no-variants" class="plugin-anchor" href="#example-2-product-with-no-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Product with no variants</h5>
+<p>Now let&apos;s say the same pair of shoes has no variants and comes only in a single color and size.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> productData = {
+  id: <span class="hljs-string">&apos;81923681&apos;</span>,
+  name: <span class="hljs-string">&apos;Running Shoes&apos;</span>,
+  brand: <span class="hljs-string">&apos;Nike&apos;</span>,
+  variants: [
+    {
+      id: <span class="hljs-string">&apos;81923681&apos;</span>,
+      name: <span class="hljs-literal">null</span>,  <span class="hljs-comment">// null indicates this product has no variants</span>
+      availability: <span class="hljs-number">3</span>,
+      image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes.png&apos;</span>,
+      url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes&apos;</span>,
+      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<p><strong>Important:</strong></p>
+<ul>
+<li>Even if a product has no variant, the <code>variants</code> array <strong>must</strong> still have a single object describing the product itself. The <code>variant[0].id</code> should be identical to <code>id</code>, and <code>name</code> should be <code>null</code>.</li>
+<li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
+</ul>
+<h3 id="order-data"><a name="order-data" class="plugin-anchor" href="#order-data"><i class="fa fa-link" aria-hidden="true"></i></a>Order data</h3>
+<p>Order data consist of these key value pairs:</p>
+<ul>
+<li><code>id</code> ID of this order</li>
+<li><code>customer</code> Data about who just bought from your store<ul>
+<li><code>id</code> ID of the customer, <code>null</code> means &quot;guest&quot; checkout</li>
+<li><code>first_name</code> First name</li>
+<li><code>last_name</code> Last name</li>
+<li><code>email</code> Email address</li>
+</ul>
+</li>
+<li><code>currency</code> Three character currency symbol</li>
+<li><code>line_items</code> The list of products purchased<ul>
+<li><code>variant_id</code> The ID of the product <em>variant</em> (or product ID if no variant)</li>
+<li><code>price</code> Unit price of the product variant</li>
+<li><code>quantity</code> Quantity of the product variant purchased</li>
+<li><code>product_id</code> ID of the parent product</li>
+<li><code>total_discount</code> Discount applied to the line item (factoring in quantity)</li>
+</ul>
+</li>
+</ul>
+<h5 id="example-order"><a name="example-order" class="plugin-anchor" href="#example-order"><i class="fa fa-link" aria-hidden="true"></i></a>Example order</h5>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> orderData = {
+  id: <span class="hljs-string">&apos;823413&apos;</span>,
+  customer: {
+    id: <span class="hljs-string">&apos;3712&apos;</span>,
+    first_name: <span class="hljs-string">&quot;James&quot;</span>,
+    last_name: <span class="hljs-string">&quot;Schwartz&quot;</span>,
+    email: <span class="hljs-string">&quot;james@hostmail.com&quot;</span>
+  },
+  currency: <span class="hljs-string">&quot;USD&quot;</span>,
+  line_items: [
+    {
+      variant_id: <span class="hljs-string">&apos;5953504331&apos;</span>,
+      quantity: <span class="hljs-number">1</span>,
+      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      product_id: <span class="hljs-string">&apos;81923681&apos;</span>,
+      total_discount: <span class="hljs-string">&quot;0.0&quot;</span>
+    },
+    {
+      variant_id: <span class="hljs-string">&apos;5953504300&apos;</span>,
+      quantity: <span class="hljs-number">2</span>,
+      price: <span class="hljs-string">&quot;129.90&quot;</span>,
+      product_id: <span class="hljs-string">&apos;81923622&apos;</span>,
+      total_discount: <span class="hljs-string">&quot;10.0&quot;</span>
+    }
+  ]
+}
+</code></pre>
+<p><strong>Important:</strong></p>
+<ul>
+<li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="BROWSER.html" class="navigation navigation-prev " aria-label="Previous page: Browser">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../API.html" class="navigation navigation-next " aria-label="Next page: API">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-13T08:02:03.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-13T13:31:11.508Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
