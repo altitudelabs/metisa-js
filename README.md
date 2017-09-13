@@ -2,39 +2,14 @@
 
 _JS sdk for Metisa API_
 
+You can find our official documentation [here](https://altitudelabs.github.io/metisa-js/)
+
 **Supports:**
 - Browser
 
 **Upcoming features**
 - Support for Node.js
 - Support for React Native
-
-### Installation
-
-**Browser**
-- Metisa for browser requires [jQuery](https://code.jquery.com/). Please make sure jQuery is available.
-
-  ```
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  ```
-
-- Once jQuery is available, paste the following script to your site. This will load Metisa SDK directly from this repository.
-
-  ```
-  <script src="https://cdn.rawgit.com/altitudelabs/metisa-js/sample/dist/browser.js"></script>
-  ```
-
-- Now you can start using it!
-
-  ```
-  <script type="text/javascript">
-    mt('store', 'metisa');
-  </script>
-  ```
-
-- Find more about what you can do by reading our API documentation(missing link)
 
 ### For Developers
 

@@ -63,7 +63,6 @@ class Metisa {
         this.log('Language is', arguments[1])
         this.language = arguments[1];
     }
-    this.tryStart();
   }
 };
 module.exports = Metisa;

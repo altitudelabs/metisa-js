@@ -6,11 +6,12 @@
   "scripts": {
     "build": "npm run build-css && npm run build-js",
     "build-browser": "node builders/build-browser.js",
-    "build-browser:watch": "nodemon --watch ./src -e js -x \"npm run build-browser\"",
+    "build-browser:watch": "nodemon --watch ./src -e js -x \"npm run build-browser && npm run build-api-doc\"",
     "node-sample": "nodemon ./sample/node",
+    "build-api-doc": "node builders/jsdoc.js",
     "build-doc": "gitbook build ./doc ./doc/dist",
     "build-doc:watch": "gitbook serve ./doc ./doc/dist",
-    "deploy-doc": "gitbook build ./doc ./doc/dist && gh-pages -d ./doc/dist",
+    "deploy-doc": "npm run build-doc && gh-pages -d ./doc/dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,6 +34,7 @@
   "devDependencies": {
     "browserify": "14.4.0",
     "express": "4.15.4",
-    "gh-pages": "1.0.0"
+    "gh-pages": "1.0.0",
+    "jsdoc-to-markdown": "3.0.0"
   }
 }
