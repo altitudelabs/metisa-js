@@ -1,6 +1,9 @@
 var MetisaCore = require('../core');
 var withIFrame = require('./withIFrame');
 var util = require('../../util');
+var _ = {
+  once: require('lodash/once')
+};
 var compose = util.compose;
 
 /**
@@ -35,6 +38,7 @@ class MetisaDom extends MetisawithIFrame {
     this.registerOptions = this.registerOptions.bind(this);
 
     this.attachRegisterOptionsToWindow();
+    this.renderWidget = _.once(this.registerOptions);
   }
 
   /**
@@ -63,10 +67,12 @@ class MetisaDom extends MetisawithIFrame {
 
   /**
    * Renders Metisa widgets in the browser.
+   * Only gets called once
    */
   renderWidget() {
+    this.renderWidgetCalled = true;
     var self = this,
-      widgets = $('.mt-widget');
+        widgets = $('.mt-widget');
 
     // Convert widgets nodelist to true array
     widgets = $.makeArray(widgets);
@@ -130,7 +136,6 @@ class MetisaDom extends MetisawithIFrame {
       iframe.contentWindow.document.open();
       iframe.contentWindow.document.write(html);
       iframe.contentWindow.document.close();
-
       $.ajax({
         type: "GET",
         url: url,
@@ -147,7 +152,6 @@ class MetisaDom extends MetisawithIFrame {
             iframeParent.removeChild(iframeParent.firstChild);
           }
         }
-
         // Create a new iframe for widget
         var iframe = self.createIFrameWithId(widgetId);
         if (xhr.status === 200) {
@@ -180,6 +184,7 @@ class MetisaDom extends MetisawithIFrame {
    */
 
   track(cat, data) {
+    console.log('tracking ', cat);
     if (this.slug) {
       if (cat === 'item') {
         this.createOrUpdateItem(data);
