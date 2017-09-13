@@ -13,7 +13,7 @@ __In Browser__
 Metisa for browser requires v1.5+ [jQuery](https://code.jquery.com/). Please make sure jQuery is available.
 
 For example
-```
+```html
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 crossorigin="anonymous"></script>
@@ -21,8 +21,8 @@ crossorigin="anonymous"></script>
 
 Once jQuery is available, paste the following script to your site. This will load Metisa SDK from our s3 bucket.
 
-```
-<script src="https://metisa-sdk.s3-ap-southeast-1.amazonaws.com/js/v0.0/browser.js"></script>
+```html
+<script src="https://d1uep6ftnlthjg.cloudfront.net/js/v0.0/browser.js"></script>
 ```
 
 Hack away!
