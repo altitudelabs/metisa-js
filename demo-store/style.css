@@ -934,7 +934,7 @@ body {
   transform: translateY(-50%);
 }
 .product-style-2 {
-  min-height: calc(100vh - 124px);
+  min-height: calc(100vh - 64px);
 }
 .product-style-2 .single-product {
   background: #fff none repeat scroll 0 0;
