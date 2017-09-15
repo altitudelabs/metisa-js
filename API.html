@@ -207,10 +207,82 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p><a name="MetisaDom"></a></p>
+                                <h2 id="classes"><a name="classes" class="plugin-anchor" href="#classes"><i class="fa fa-link" aria-hidden="true"></i></a>Classes</h2>
+<dl>
+<dt><a href="#Metisa">Metisa</a></dt>
+<dd><p>Base class for any environment.</p>
+</dd>
+<dt><a href="#MetisaDom">MetisaDom</a></dt>
+<dd><p>Base class for browser environment. This is initialised and exposed to <code>window.Metisa</code> when you import through our <a href=".#installation">example</a>.</p>
+</dd>
+<dt><a href="#IFrame">IFrame</a></dt>
+<dd><p>Class for <code>&lt;iframe&gt;</code> element in the recommendation widget.</p>
+</dd>
+</dl>
+
+<h2 id="functions"><a name="functions" class="plugin-anchor" href="#functions"><i class="fa fa-link" aria-hidden="true"></i></a>Functions</h2>
+<dl>
+<dt><a href="#browser">browser()</a></dt>
+<dd><p>Loads jQuery and MetisaDom object into window object in browser</p>
+</dd>
+<dt><a href="#extendClass">extendClass(composedClass)</a> &#x21D2; <code>IFrame</code></dt>
+<dd><p>Returns IFrame class that inherits <code>composedClass</code>.</p>
+</dd>
+<dt><a href="#singleton">singleton(opts)</a> &#x21D2; <code>Metisa</code></dt>
+<dd><p>Restricts Metisa object is initialised once, and reused throughout the app life.</p>
+</dd>
+<dt><a href="#getUtil">getUtil()</a> &#x21D2; <code>object</code></dt>
+<dd><p>Gets utilities</p>
+</dd>
+</dl>
+
+<h2 id="typedefs"><a name="typedefs" class="plugin-anchor" href="#typedefs"><i class="fa fa-link" aria-hidden="true"></i></a>Typedefs</h2>
+<dl>
+<dt><a href="#Opts">Opts</a> : <code>Object</code></dt>
+<dd><p>Options object definition</p>
+</dd>
+</dl>
+
+<p><a name="Metisa"></a></p>
+<h2 id="metisa"><a name="metisa" class="plugin-anchor" href="#metisa"><i class="fa fa-link" aria-hidden="true"></i></a>Metisa</h2>
+<p>Base class for any environment.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#Metisa">Metisa</a><ul>
+<li><a href="#new_Metisa_new">new Metisa(opts)</a></li>
+<li><a href="#Metisa+isReadyToStart">.isReadyToStart</a> &#x21D2; <code>boolean</code></li>
+<li><a href="#Metisa+registerOptions">.registerOptions()</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_Metisa_new"></a></p>
+<h3 id="new-metisaopts"><a name="new-metisaopts" class="plugin-anchor" href="#new-metisaopts"><i class="fa fa-link" aria-hidden="true"></i></a>new Metisa(opts)</h3>
+<p>Constructs a new <code>Metisa</code> with <code>opts</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opts</td>
+<td><a href="#Opts"><code>Opts</code></a></td>
+<td>Option object to be passed to MetisaDom contructor</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Metisa+isReadyToStart"></a></p>
+<h3 id="metisaisreadytostart-&#x21D2;-boolean"><a name="metisaisreadytostart-&#x21D2;-boolean" class="plugin-anchor" href="#metisaisreadytostart-&#x21D2;-boolean"><i class="fa fa-link" aria-hidden="true"></i></a>metisa.isReadyToStart &#x21D2; <code>boolean</code></h3>
+<p>Returns <code>true</code> if it is ready to start calling API.</p>
+<p><strong>Kind</strong>: instance property of <a href="#Metisa"><code>Metisa</code></a><br><a name="Metisa+registerOptions"></a></p>
+<h3 id="metisaregisteroptions"><a name="metisaregisteroptions" class="plugin-anchor" href="#metisaregisteroptions"><i class="fa fa-link" aria-hidden="true"></i></a>metisa.registerOptions()</h3>
+<p>Registers options from <code>mt(&apos;{{ option }}&apos;, {{ value }})</code>.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Metisa"><code>Metisa</code></a><br><a name="MetisaDom"></a></p>
 <h2 id="metisadom"><a name="metisadom" class="plugin-anchor" href="#metisadom"><i class="fa fa-link" aria-hidden="true"></i></a>MetisaDom</h2>
-<p>Base class for browser environment.</p>
-<p>This is initialised and exposed to <code>window.Metisa</code> when you import through our <a href=".#installation">example</a>.</p>
+<p>Base class for browser environment. This is initialised and exposed to <code>window.Metisa</code> when you import through our <a href=".#installation">example</a>.</p>
 <p><strong>Kind</strong>: global class  </p>
 <ul>
 <li><a href="#MetisaDom">MetisaDom</a><ul>
@@ -218,20 +290,237 @@
 <li><a href="#MetisaDom+attachRegisterOptionsToWindow">.attachRegisterOptionsToWindow()</a></li>
 <li><a href="#MetisaDom+registerOptions">.registerOptions()</a></li>
 <li><a href="#MetisaDom+renderWidget">.renderWidget()</a></li>
-<li><a href="#MetisaDom+track">.track()</a></li>
-<li><a href="#MetisaDom+createOrUpdateProduct">.createOrUpdateProduct()</a></li>
-<li><a href="#MetisaDom+submitOrUpdateOrder">.submitOrUpdateOrder()</a></li>
+<li><a href="#MetisaDom+track">.track(cat, data)</a></li>
+<li><a href="#MetisaDom+createOrUpdateProduct">.createOrUpdateProduct(productData)</a></li>
+<li><a href="#MetisaDom+createOrUpdateOrder">.createOrUpdateOrder(orderData)</a></li>
 <li><a href="#MetisaDom+log">.log()</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="new_MetisaDom_new"></a></p>
 <h3 id="new-metisadomopts"><a name="new-metisadomopts" class="plugin-anchor" href="#new-metisadomopts"><i class="fa fa-link" aria-hidden="true"></i></a>new MetisaDom(opts)</h3>
-<p>Constructs a new <code>MetisaDom</code> with <code>opts</code></p>
+<p>Constructs a new <code>MetisaDom</code> with <code>opts</code>.</p>
 <table>
 <thead>
 <tr>
 <th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opts</td>
+<td><a href="#Opts"><code>Opts</code></a></td>
+<td>Option object to be passed to MetisaDom contructor</td>
+</tr>
+</tbody>
+</table>
+<p><a name="MetisaDom+attachRegisterOptionsToWindow"></a></p>
+<h3 id="metisadomattachregisteroptionstowindow"><a name="metisadomattachregisteroptionstowindow" class="plugin-anchor" href="#metisadomattachregisteroptionstowindow"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.attachRegisterOptionsToWindow()</h3>
+<p>Attaches registered options to <code>window.mt</code>.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+registerOptions"></a></p>
+<h3 id="metisadomregisteroptions"><a name="metisadomregisteroptions" class="plugin-anchor" href="#metisadomregisteroptions"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.registerOptions()</h3>
+<p>Registers options from <code>mt(&apos;{{ option }}&apos;, {{ value }})</code>and determines whether product or order data should be handled.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+renderWidget"></a></p>
+<h3 id="metisadomrenderwidget"><a name="metisadomrenderwidget" class="plugin-anchor" href="#metisadomrenderwidget"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.renderWidget()</h3>
+<p>Renders Metisa widgets in the browser.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+track"></a></p>
+<h3 id="metisadomtrackcat-data"><a name="metisadomtrackcat-data" class="plugin-anchor" href="#metisadomtrackcat-data"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.track(cat, data)</h3>
+<p>Starts tracking by submitting product or order data to the API.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat</td>
+<td><code>string</code></td>
+<td>Category name of data (allowed values: <code>&quot;product&quot;</code>,<code>&quot;order&quot;</code>)</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>Object of product or order data</td>
+</tr>
+</tbody>
+</table>
+<p><a name="MetisaDom+createOrUpdateProduct"></a></p>
+<h3 id="metisadomcreateorupdateproductproductdata"><a name="metisadomcreateorupdateproductproductdata" class="plugin-anchor" href="#metisadomcreateorupdateproductproductdata"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.createOrUpdateProduct(productData)</h3>
+<p>Creates a product if it does not exist in Metisa or updates the product.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>productData</td>
+<td><code>Object</code></td>
+<td><a href="BROWSER/SCHEMA.html#product-data">productData</a> object to be submitted to the product API endpoint</td>
+</tr>
+</tbody>
+</table>
+<p><a name="MetisaDom+createOrUpdateOrder"></a></p>
+<h3 id="metisadomcreateorupdateorderorderdata"><a name="metisadomcreateorupdateorderorderdata" class="plugin-anchor" href="#metisadomcreateorupdateorderorderdata"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.createOrUpdateOrder(orderData)</h3>
+<p>Create an order if it does not exist in Metisa or updates the order.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orderData</td>
+<td><code>Object</code></td>
+<td><a href="BROWSER/SCHEMA.html#order-data">orderData</a> object to be submitted to the order API endpoint</td>
+</tr>
+</tbody>
+</table>
+<p><a name="MetisaDom+log"></a></p>
+<h3 id="metisadomlog"><a name="metisadomlog" class="plugin-anchor" href="#metisadomlog"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.log()</h3>
+<p>Writes logs to browser console.</p>
+<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="IFrame"></a></p>
+<h2 id="iframe"><a name="iframe" class="plugin-anchor" href="#iframe"><i class="fa fa-link" aria-hidden="true"></i></a>IFrame</h2>
+<p>Class for <code>&lt;iframe&gt;</code> element in the recommendation widget.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#IFrame">IFrame</a><ul>
+<li><a href="#IFrame.createIFrameWithId">.createIFrameWithId(id)</a> &#x21D2; <code>HTMLElement</code></li>
+<li><a href="#IFrame.resizeIframe">.resizeIframe(obj)</a></li>
+<li><a href="#IFrame.getLoaderHTML">.getLoaderHTML()</a> &#x21D2; <code>string</code></li>
+<li><a href="#IFrame.decodeHtmlEntities">.decodeHtmlEntities(str)</a> &#x21D2; <code>string</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="IFrame.createIFrameWithId"></a></p>
+<h3 id="iframecreateiframewithidid-&#x21D2;-htmlelement"><a name="iframecreateiframewithidid-&#x21D2;-htmlelement" class="plugin-anchor" href="#iframecreateiframewithidid-&#x21D2;-htmlelement"><i class="fa fa-link" aria-hidden="true"></i></a>IFrame.createIFrameWithId(id) &#x21D2; <code>HTMLElement</code></h3>
+<p>Returns <code>iframe</code> element</p>
+<p><strong>Kind</strong>: static method of <a href="#IFrame"><code>IFrame</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>Recommendation widget ID</td>
+</tr>
+</tbody>
+</table>
+<p><a name="IFrame.resizeIframe"></a></p>
+<h3 id="iframeresizeiframeobj"><a name="iframeresizeiframeobj" class="plugin-anchor" href="#iframeresizeiframeobj"><i class="fa fa-link" aria-hidden="true"></i></a>IFrame.resizeIframe(obj)</h3>
+<p>Resizes <code>iframe</code> element</p>
+<p><strong>Kind</strong>: static method of <a href="#IFrame"><code>IFrame</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obj</td>
+<td><code>HTMLElement</code></td>
+<td><code>iframe</code> element to be resized.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="IFrame.getLoaderHTML"></a></p>
+<h3 id="iframegetloaderhtml-&#x21D2;-string"><a name="iframegetloaderhtml-&#x21D2;-string" class="plugin-anchor" href="#iframegetloaderhtml-&#x21D2;-string"><i class="fa fa-link" aria-hidden="true"></i></a>IFrame.getLoaderHTML() &#x21D2; <code>string</code></h3>
+<p>Returns loader HTML</p>
+<p><strong>Kind</strong>: static method of <a href="#IFrame"><code>IFrame</code></a><br><a name="IFrame.decodeHtmlEntities"></a></p>
+<h3 id="iframedecodehtmlentitiesstr-&#x21D2;-string"><a name="iframedecodehtmlentitiesstr-&#x21D2;-string" class="plugin-anchor" href="#iframedecodehtmlentitiesstr-&#x21D2;-string"><i class="fa fa-link" aria-hidden="true"></i></a>IFrame.decodeHtmlEntities(str) &#x21D2; <code>string</code></h3>
+<p>Returns decoded HTML entities</p>
+<p><strong>Kind</strong>: static method of <a href="#IFrame"><code>IFrame</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str</td>
+<td><code>string</code></td>
+<td>HTML entities</td>
+</tr>
+</tbody>
+</table>
+<p><a name="browser"></a></p>
+<h2 id="browser"><a name="browser" class="plugin-anchor" href="#browser"><i class="fa fa-link" aria-hidden="true"></i></a>browser()</h2>
+<p>Loads jQuery and MetisaDom object into window object in browser</p>
+<p><strong>Kind</strong>: global function<br><a name="extendClass"></a></p>
+<h2 id="extendclasscomposedclass-&#x21D2;-iframe"><a name="extendclasscomposedclass-&#x21D2;-iframe" class="plugin-anchor" href="#extendclasscomposedclass-&#x21D2;-iframe"><i class="fa fa-link" aria-hidden="true"></i></a>extendClass(composedClass) &#x21D2; <a href="#IFrame"><code>IFrame</code></a></h2>
+<p>Returns IFrame class that inherits <code>composedClass</code>.</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>composedClass</td>
+<td><code>class</code></td>
+<td>Base class to be inherited.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="singleton"></a></p>
+<h2 id="singletonopts-&#x21D2;-metisa"><a name="singletonopts-&#x21D2;-metisa" class="plugin-anchor" href="#singletonopts-&#x21D2;-metisa"><i class="fa fa-link" aria-hidden="true"></i></a>singleton(opts) &#x21D2; <a href="#Metisa"><code>Metisa</code></a></h2>
+<p>Restricts Metisa object is initialised once, and reused throughout the app life.</p>
+<p><strong>Kind</strong>: global function  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opts</td>
+<td><a href="#Opts"><code>Opts</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="getUtil"></a></p>
+<h2 id="getutil-&#x21D2;-object"><a name="getutil-&#x21D2;-object" class="plugin-anchor" href="#getutil-&#x21D2;-object"><i class="fa fa-link" aria-hidden="true"></i></a>getUtil() &#x21D2; <code>object</code></h2>
+<p>Gets utilities</p>
+<p><strong>Kind</strong>: global function<br><a name="Opts"></a></p>
+<h2 id="opts--object"><a name="opts--object" class="plugin-anchor" href="#opts--object"><i class="fa fa-link" aria-hidden="true"></i></a>Opts : <code>Object</code></h2>
+<p>Options object definition</p>
+<p><strong>Kind</strong>: global typedef<br><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
 <th>Type</th>
 <th>Default</th>
 <th>Description</th>
@@ -239,53 +528,25 @@
 </thead>
 <tbody>
 <tr>
-<td>opts</td>
-<td><code>object</code></td>
-<td></td>
-<td>Option object to be passed to MetisaDom contructor</td>
-</tr>
-<tr>
-<td>opts.baseUrl</td>
+<td>baseUrl</td>
 <td><code>string</code></td>
 <td><code>&quot;https://askmetisa.com/&amp;quot;</code></td>
 <td>Base URL of API</td>
 </tr>
 <tr>
-<td>opts.productEndpoint</td>
+<td>productEndpoint</td>
 <td><code>string</code></td>
 <td><code>&quot;/api/v1/product-collection&quot;</code></td>
 <td>Path of API endpoint for creating or updating products</td>
 </tr>
 <tr>
-<td>opts.orderEndpoint</td>
+<td>orderEndpoint</td>
 <td><code>string</code></td>
 <td><code>&quot;/api/v1/order-transaction&quot;</code></td>
 <td>Path of API endpoint for creating or updating orders</td>
 </tr>
 </tbody>
 </table>
-<p><a name="MetisaDom+attachRegisterOptionsToWindow"></a></p>
-<h3 id="metisadomattachregisteroptionstowindow"><a name="metisadomattachregisteroptionstowindow" class="plugin-anchor" href="#metisadomattachregisteroptionstowindow"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.attachRegisterOptionsToWindow()</h3>
-<p>Attaches registered options to <code>window.mt</code></p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+registerOptions"></a></p>
-<h3 id="metisadomregisteroptions"><a name="metisadomregisteroptions" class="plugin-anchor" href="#metisadomregisteroptions"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.registerOptions()</h3>
-<p>Registers arguments from DOM and determines whether to track product or order data</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+renderWidget"></a></p>
-<h3 id="metisadomrenderwidget"><a name="metisadomrenderwidget" class="plugin-anchor" href="#metisadomrenderwidget"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.renderWidget()</h3>
-<p>Renders Metisa widgets in browser</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+track"></a></p>
-<h3 id="metisadomtrack"><a name="metisadomtrack" class="plugin-anchor" href="#metisadomtrack"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.track()</h3>
-<p>Starts tracking according to the data category</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+createOrUpdateProduct"></a></p>
-<h3 id="metisadomcreateorupdateproduct"><a name="metisadomcreateorupdateproduct" class="plugin-anchor" href="#metisadomcreateorupdateproduct"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.createOrUpdateProduct()</h3>
-<p>Creates a product if it does not exist in the database or updates the product.</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+submitOrUpdateOrder"></a></p>
-<h3 id="metisadomsubmitorupdateorder"><a name="metisadomsubmitorupdateorder" class="plugin-anchor" href="#metisadomsubmitorupdateorder"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.submitOrUpdateOrder()</h3>
-<p>Submits an order if it does not exist in the database or updates the order.</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a><br><a name="MetisaDom+log"></a></p>
-<h3 id="metisadomlog"><a name="metisadomlog" class="plugin-anchor" href="#metisadomlog"><i class="fa fa-link" aria-hidden="true"></i></a>metisaDom.log()</h3>
-<p>Writes arguments to console</p>
-<p><strong>Kind</strong>: instance method of <a href="#MetisaDom"><code>MetisaDom</code></a>  </p>
 
                                 
                                 </section>
@@ -325,7 +586,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"API","level":"1.4","depth":1,"previous":{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"API.md","mtime":"2017-09-13T13:29:37.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-13T13:31:11.508Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"API","level":"1.4","depth":1,"previous":{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"API.md","mtime":"2017-09-15T08:55:09.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-15T09:07:50.007Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
