@@ -5,26 +5,28 @@ Metisa has two main functions:
 * [Tracking](#tracking)
 * [Recommendation](#recommendaton)
 
+<br />
 ##### Tracking
 
-Metisa tracks your users' behaviour or purchases in order to come up with better personalised recommendations.
+Metisa tracks your customers' individual behaviour or purchases in order to come up with better personalized recommendations.
 
 ```html
 <script>
-  mt('product', productData);
-  mt('order', orderData);
+  mt('store', '{{ your_metisa_account_slug }}');
+  mt('product', {{ productData }});
+  mt('order', {{ orderData }});
 </script>
 ```
-
+<br />
 ##### Recommendation
 
-Once the tracking is set up, Metisa can now start feeding personalised recommendations for your users.
+Once the tracking is set up, Metisa can now start providing personalized recommendations for your customers that get more accurate with time.
 
 ```html
 <!-- Place wherever you want the widget to be rendered -->
-<div class="mt-widget" data-widget-id=9423></div>
+<div class="mt-widget" data-widget-id="{{ widget_id }}"></div>
 
 <script>
-  mt('store', yourMetisaAccountSlug);
+  mt('store', '{{ your_metisa_account_slug }}');
 </script>
 ```

@@ -9,8 +9,9 @@
     "build-browser:watch": "nodemon --watch ./src -e js -x \"npm run build-browser && npm run build-api-doc\"",
     "node-sample": "nodemon ./sample/node",
     "build-api-doc": "node builders/jsdoc.js",
-    "build-doc": "gitbook build ./doc ./doc/dist",
-    "build-doc:watch": "gitbook serve ./doc ./doc/dist",
+    "prep-doc": "cd ./doc && gitbook install && cd ..",
+    "build-doc": "npm run prep-doc && gitbook build ./doc ./doc/dist",
+    "build-doc:watch": "npm run prep-doc && gitbook serve ./doc ./doc/dist",
     "deploy-doc": "npm run build-doc && gh-pages -d ./doc/dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
