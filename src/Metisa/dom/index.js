@@ -4,19 +4,25 @@ var util = require('../../util');
 var compose = util.compose;
 
 /**
-  * Base class for browser environment.
-  *
-  * This is initialised and exposed to `window.Metisa` when you import through our [example](/#installation).
-  *
-  * @class
-  */
-class MetisaDom extends compose(MetisaCore)(withIFrame) {
-  /**
-   * constructor - create MetisaDom
-   *
-   * @param  {object} opts options object to be passed to MetisaCore contructor
+ * @private
+ * @class
+ * @classdesc {@link Metisa} class that composes with {@link composeClass.IFrame}
+ * @requires Metisa
+ * @requires composeClass
+ * @requires getUtil.compose
+ */
+var MetisawithIFrame = compose(MetisaCore)(withIFrame);
 
-   * @return {class}  MetisaDom
+/**
+ * @private
+ * @class
+ * @classdesc Base class for browser environment. This is initialised and exposed to `window.Metisa` when you import through our [example](/#installation).
+ * @extends MetisawithIFrame
+ */
+class MetisaDom extends MetisawithIFrame {
+  /**
+   * Constructs a new `MetisaDom` with `opts`.
+   * @param {Opts} opts Option object to be passed to MetisaDom contructor
    */
   constructor(opts) {
     if ($ == null) {
@@ -31,26 +37,33 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     this.attachRegisterOptionsToWindow();
   }
 
+  /**
+   * Attaches registered options to `window.mt`.
+   */
   attachRegisterOptionsToWindow() {
     window.mt = this.registerOptions;
   }
 
+  /**
+   * Registers options from `mt('{{ option }}', {{ value }})`and determines whether product or order data should be handled.
+   */
   registerOptions() {
     super.registerOptions.apply(this, arguments);
 
     if (this.isReadyToStart) {
       this.renderWidget();
-      if (this.slug) {
-        if (this.product) {
-          this.track('product', this.product);
-        }
-        else if(this.order) {
-          this.track('order', this.order);
-        }
+      if (this.product) {
+        this.track('product', this.product);
+      }
+      else if(this.order) {
+        this.track('order', this.order);
       }
     }
   }
 
+  /**
+   * Renders Metisa widgets in the browser.
+   */
   renderWidget() {
     var self = this,
       widgets = $('.mt-widget');
@@ -160,6 +173,11 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
       });
     }.bind(this));
   }
+  /**
+   * Starts tracking by submitting product or order data to the API.
+   * @param {string} cat Category name of data (allowed values: `"product"`,`"order"`)
+   * @param {object} data Object of product or order data
+   */
 
   track(cat, data) {
     if (this.slug) {
@@ -167,14 +185,16 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
         this.createOrUpdateProduct(data);
       }
       else if (cat === 'order') {
-        this.submitOrUpdateOrder(data);
+        this.createOrUpdateOrder(data);
       }
     }
   }
 
+  /**
+   * Creates a product if it does not exist in Metisa or updates the product.
+   * @param {Object} productData [productData]{@link BROWSER/SCHEMA.html#product-data} object to be submitted to the product API endpoint
+   */
   createOrUpdateProduct(data) {
-    // create product if it does not exist in the db
-    // ow, update the product
     var url = this.opts.baseUrl + this.slug + this.opts.productEndpoint;
     $.ajax({
       type: 'POST',
@@ -197,9 +217,11 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     });
   }
 
-  submitOrUpdateOrder(data) {
-    // submit order if it does not exist in the db
-    // ow, update the order
+  /**
+   * Creates an order if it does not exist in Metisa or updates the order.
+   * @param {Object} orderData [orderData]{@link BROWSER/SCHEMA.html#order-data} object to be submitted to the order API endpoint
+   */
+  createOrUpdateOrder(data) {
     var url = this.opts.baseUrl + this.slug + this.opts.orderEndpoint;
     $.ajax({
       type: 'POST',
@@ -222,6 +244,9 @@ class MetisaDom extends compose(MetisaCore)(withIFrame) {
     });
   }
 
+  /**
+   * Writes logs to browser console when `debug` property of `MetisaDom` object is `true`
+   */
   log() {
     if (this.debug) {
       console.log.apply(window, arguments);

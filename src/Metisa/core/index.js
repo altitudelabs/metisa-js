@@ -1,8 +1,27 @@
+/**
+ * Options object definition
+ * @private
+ * @typedef {Object} Opts
+ * @property {string} baseUrl=https://askmetisa.com/ Base URL of API
+ * @property {string} productEndpoint=/api/v1/product-collection Path of API endpoint for creating or updating products
+ * @property {string} orderEndpoint=/api/v1/order-transaction Path of API endpoint for creating or updating orders
+ */
+
+/**
+ * @private
+ * @class
+ * @classdesc Base class for any environment.
+
+ */
 class Metisa {
+  /**
+   * Constructs a new `Metisa` with `opts`.
+   * @param {Opts} opts Option object to be passed to Metisa contructor
+   */
   constructor(opts) {
     opts = opts || {};
     this.opts = Object.assign(
-      {
+    {
         baseUrl: 'https://askmetisa.com/',
         productEndpoint: "/api/v1/product-collection",
         orderEndpoint: "/api/v1/order-transaction",
@@ -13,11 +32,18 @@ class Metisa {
     console.log(`initialised Metisa with ${JSON.stringify(this.opts)}!`);
   }
 
+  /**
+   * Returns `true` if it is ready to start calling API.
+   * @returns {boolean}
+   */
   get isReadyToStart() {
     var isReady = false;
     return true;
   }
 
+  /**
+   * Registers options from `mt('{{ option }}', {{ value }})`.
+   */
   registerOptions() {
     if (arguments[0] === 'baseUrl') {
       // Init Base URL for testing

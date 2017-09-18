@@ -1,5 +1,24 @@
-module.exports = function(composedClass) {
+/**
+ * Returns {@link composeClass.IFrame} composed with `composedClass`.
+ *
+ * @private
+ * @param  {class} `composedClass` to be composed.
+ * @returns {composedClass.IFrame}
+ */
+
+var composeClass = function(composedClass) {
+  /**
+   * `<iframe>` element in the recommendation widget.
+   * @typedef {Object} IFrame
+   * @memberof composeClass
+   */
   return class IFrame extends composedClass {
+    /**
+     * Returns `iframe` element
+     * @memberof composeClass.IFrame
+     * @param {string} id Recommendation widget ID
+     * @returns {HTMLElement}
+     */
     createIFrameWithId(id) {
       var iframe = document.createElement('iframe');
 
@@ -12,15 +31,31 @@ module.exports = function(composedClass) {
       return iframe;
     }
 
+    /**
+     * Resizes `iframe` element
+     * @memberof composeClass.IFrame
+     * @param {HTMLElement} obj `iframe` element to be resized.
+     */
     resizeIframe(obj) {
       obj.style.height = 0;
       obj.style.height = obj.contentWindow.document.body.offsetHeight + 'px';
     }
 
+    /**
+     * Returns loader HTML
+     * @memberof composeClass.IFrame
+     * @returns {string}
+     */
     getLoaderHTML() {
       return '<!doctype html><html><style>body{height: 100px;}.cs-loader{height: 100%; width: 100%;}.cs-loader-inner{transform: translateY(-50%); top: 50%; position: absolute; width: calc(100% - 200px); color: #A2A3A3; padding: 0 100px; text-align: center;}.cs-loader-inner label{font-size: 20px; opacity: 0; display: inline-block;}@keyframes lol{0%{opacity: 0; transform: translateX(-300px);}33%{opacity: 1; transform: translateX(0px);}66%{opacity: 1; transform: translateX(0px);}100%{opacity: 0; transform: translateX(300px);}}@-webkit-keyframes lol{0%{opacity: 0; -webkit-transform: translateX(-300px);}33%{opacity: 1; -webkit-transform: translateX(0px);}66%{opacity: 1; -webkit-transform: translateX(0px);}100%{opacity: 0; -webkit-transform: translateX(300px);}}.cs-loader-inner label:nth-child(6){-webkit-animation: lol 3s infinite ease-in-out; animation: lol 3s infinite ease-in-out;}.cs-loader-inner label:nth-child(5){-webkit-animation: lol 3s 100ms infinite ease-in-out; animation: lol 3s 100ms infinite ease-in-out;}.cs-loader-inner label:nth-child(4){-webkit-animation: lol 3s 200ms infinite ease-in-out; animation: lol 3s 200ms infinite ease-in-out;}.cs-loader-inner label:nth-child(3){-webkit-animation: lol 3s 300ms infinite ease-in-out; animation: lol 3s 300ms infinite ease-in-out;}.cs-loader-inner label:nth-child(2){-webkit-animation: lol 3s 400ms infinite ease-in-out; animation: lol 3s 400ms infinite ease-in-out;}.cs-loader-inner label:nth-child(1){-webkit-animation: lol 3s 500ms infinite ease-in-out; animation: lol 3s 500ms infinite ease-in-out;}</style><body> <div class="cs-loader"> <div class="cs-loader-inner"> <label>●</label> <label>●</label> <label>●</label> <label>●</label> <label>●</label> <label>●</label> </div></div></body></html>';
     }
 
+    /**
+     * Returns decoded HTML entities
+     * @memberof composeClass.IFrame
+     * @param {string} str HTML entities
+     * @returns {string}
+     */
     decodeHtmlEntities(str) {
       return str.replace(/&#?(\w+);/g, function(match, dec) {
         if (isNaN(dec)) {
@@ -213,3 +248,5 @@ module.exports = function(composedClass) {
     }
   };
 };
+
+module.exports = composeClass;
