@@ -9,7 +9,7 @@ function getUtil() {
    * Object containing utililities
    * @typedef {Object} UtilObj
    * @property {string} environment Environment that Metisa object is exposed to. Returns `'browser'` or `node`.
-   * @property {function} compose [Function](#getutilcomposefuncoriginal-⇒-class) for composing classes
+   * @property {function} compose [Function](#GetUtil-composeFunc) for composing classes
    * @memberof getUtil
    */
   /**

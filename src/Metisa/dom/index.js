@@ -45,18 +45,18 @@ class MetisaDom extends MetisawithIFrame {
   }
 
   /**
-   * Registers options from `mt('{{ option }}', {{ value }})`and determines whether product or order data should be handled.
+   * Registers options from `mt('{{ option }}', {{ value }})`and determines whether item or action data should be handled.
    */
   registerOptions() {
     super.registerOptions.apply(this, arguments);
 
     if (this.isReadyToStart) {
       this.renderWidget();
-      if (this.product) {
-        this.track('product', this.product);
+      if (this.item) {
+        this.track('item', this.item);
       }
-      else if(this.order) {
-        this.track('order', this.order);
+      else if(this.action) {
+        this.track('action', this.action);
       }
     }
   }
@@ -74,28 +74,28 @@ class MetisaDom extends MetisawithIFrame {
     widgets.forEach(function(widget) {
       // Render widget using Ajax so we can gracefully degrade if there is no content available
       var widgetId = widget.dataset.widgetId,
-        customerId = widget.dataset.customerId,
-        productId = widget.dataset.productId,
+        userId = widget.dataset.userId,
+        itemId = widget.dataset.itemId,
         categoryName = widget.dataset.categoryName,
         brandname = widget.dataset.brandname,
         sessionId = widget.dataset.sessionId,
         language = widget.dataset.language,
         url = this.opts.baseUrl + this.slug + '/api/v1/widget-customer?widget_id=' + widgetId;
 
-      // Override customer, category or brand
-      if (customerId) this.customerId = customerId;
-      if (productId) this.productId = productId;
+      // Override user, category or brand
+      if (userId) this.userId = userId;
+      if (itemId) this.itemId = itemId;
       if (categoryName) this.categoryName = categoryName;
       if (brandname) this.brandname = brandname;
       if (sessionId) this.sessionId = sessionId;
       if (language) this.language = language;
 
-      if (this.customerId) {
-        url += '&customer_id=' + escape(this.customerId);
+      if (this.userId) {
+        url += '&customer_id=' + escape(this.userId);
       }
 
-      if (this.productId) {
-        url += '&product_id=' + escape(this.productId);
+      if (this.itemId) {
+        url += '&product_id=' + escape(this.itemId);
       }
 
       if (this.categoryName) {
@@ -174,28 +174,28 @@ class MetisaDom extends MetisawithIFrame {
     }.bind(this));
   }
   /**
-   * Starts tracking by submitting product or order data to the API.
-   * @param {string} cat Category name of data (allowed values: `"product"`,`"order"`)
-   * @param {object} data Object of product or order data
+   * Starts tracking by submitting item or action data to the API.
+   * @param {string} cat Category name of data (allowed values: `"item"`,`"action"`)
+   * @param {object} data Object of item or action data
    */
 
   track(cat, data) {
     if (this.slug) {
-      if (cat === 'product') {
-        this.createOrUpdateProduct(data);
+      if (cat === 'item') {
+        this.createOrUpdateItem(data);
       }
-      else if (cat === 'order') {
-        this.createOrUpdateOrder(data);
+      else if (cat === 'action') {
+        this.createOrUpdateAction(data);
       }
     }
   }
 
   /**
-   * Creates a product if it does not exist in Metisa or updates the product.
-   * @param {Object} productData [productData]{@link BROWSER/SCHEMA.html#product-data} object to be submitted to the product API endpoint
+   * Creates an item if it does not exist in Metisa or updates the item.
+   * @param {Object} itemData [itemData]{@link BROWSER/SCHEMA.html#Item-data} object to be submitted to the item API endpoint
    */
-  createOrUpdateProduct(data) {
-    var url = this.opts.baseUrl + this.slug + this.opts.productEndpoint;
+  createOrUpdateItem(data) {
+    var url = this.opts.baseUrl + this.slug + this.opts.itemEndpoint;
     $.ajax({
       type: 'POST',
       url: url,
@@ -218,11 +218,11 @@ class MetisaDom extends MetisawithIFrame {
   }
 
   /**
-   * Creates an order if it does not exist in Metisa or updates the order.
-   * @param {Object} orderData [orderData]{@link BROWSER/SCHEMA.html#order-data} object to be submitted to the order API endpoint
+   * Creates an action if it does not exist in Metisa or updates the action.
+   * @param {Object} actionData [actionData]{@link BROWSER/SCHEMA.html#Action-data} object to be submitted to the action API endpoint
    */
-  createOrUpdateOrder(data) {
-    var url = this.opts.baseUrl + this.slug + this.opts.orderEndpoint;
+  createOrUpdateAction(data) {
+    var url = this.opts.baseUrl + this.slug + this.opts.actionEndpoint;
     $.ajax({
       type: 'POST',
       url: url,
@@ -245,7 +245,7 @@ class MetisaDom extends MetisawithIFrame {
   }
 
   /**
-   * Writes logs to browser console when `debug` property of `MetisaDom` object is `true`
+   * Writes logs about registered options to browser console when `debug` property of `MetisaDom` object is `true`
    */
   log() {
     if (this.debug) {

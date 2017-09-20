@@ -3,8 +3,8 @@
  * @private
  * @typedef {Object} Opts
  * @property {string} baseUrl=https://askmetisa.com/ Base URL of API
- * @property {string} productEndpoint=/api/v1/product-collection Path of API endpoint for creating or updating products
- * @property {string} orderEndpoint=/api/v1/order-transaction Path of API endpoint for creating or updating orders
+ * @property {string} itemEndpoint=/api/v1/product-collection Path of API endpoint for creating or updating items
+ * @property {string} actionEndpoint=/api/v1/order-transaction Path of API endpoint for creating or updating actions
  */
 
 /**
@@ -23,11 +23,15 @@ class Metisa {
     this.opts = Object.assign(
     {
         baseUrl: 'https://askmetisa.com/',
-        productEndpoint: "/api/v1/product-collection",
-        orderEndpoint: "/api/v1/order-transaction",
+        itemEndpoint: "/api/v1/product-collection",
+        actionEndpoint: "/api/v1/order-transaction",
       },
       opts
     );
+    /**
+     * Whether to write logs in browser console
+     * @type {boolean}
+     */
     this.debug = true;
     console.log(`initialised Metisa with ${JSON.stringify(this.opts)}!`);
   }
@@ -49,22 +53,22 @@ class Metisa {
       // Init Base URL for testing
       this.log('Base URL is', arguments[1]);
       this.opts.baseUrl = arguments[1]; // override
-    } else if (arguments[0] === 'product') {
-      // Init Product object
-      this.log('Product is', arguments[1]);
-      this.product = arguments[1];
-    } else if (arguments[0] === 'order') {
-      // Init Order object
-      this.log('Order is', arguments[1]);
-      this.order = arguments[1];
-    } else if (arguments[0] === 'store') {
+    } else if (arguments[0] === 'item') {
+      // Init Item object
+      this.log('Item is', arguments[1]);
+      this.item = arguments[1];
+    } else if (arguments[0] === 'action') {
+      // Init Action object
+      this.log('Action is', arguments[1]);
+      this.action = arguments[1];
+    } else if (arguments[0] === 'slug') {
       // Init store slug
       this.log('Store slug is', arguments[1]);
       this.slug = arguments[1];
-    } else if (arguments[0] === 'customer') {
+    } else if (arguments[0] === 'user') {
       // Init user based recommendations
-      this.log('Customer_id is', arguments[1]);
-      this.customerId = arguments[1];
+      this.log('User ID is', arguments[1]);
+      this.userId = arguments[1];
     } else if (arguments[0] === 'category') {
       // Init category
       this.log('Category is', arguments[1]);
@@ -73,10 +77,10 @@ class Metisa {
       // Init brand
       this.log('Brand is', arguments[1]);
       this.brandname = arguments[1];
-    } else if (arguments[0] === 'productId') {
-      // Init product id
-      this.log('Product ID is', arguments[1]);
-      this.productId = arguments[1];
+    } else if (arguments[0] === 'itemId') {
+      // Init item id
+      this.log('Item ID is', arguments[1]);
+      this.itemId = arguments[1];
     } else if (arguments[0] === 'gender') {
       // Init gender
       this.log('Gender is', arguments[1]);
