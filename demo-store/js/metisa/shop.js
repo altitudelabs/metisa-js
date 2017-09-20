@@ -19,7 +19,6 @@ $.get('./js/metisa/products.json')
     if (a.title > b.title) return 1;
     return 0;
   });
-  console.log(result);
   var source = $("#movie-item").html();
   var template = Handlebars.compile(source);
   $('.movie-list').html(result.map(template));
