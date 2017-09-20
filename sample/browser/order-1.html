@@ -22,34 +22,34 @@
     <script src="../../dist/browser.js"></script>
 
     <script type="text/javascript">
-      var orderData = {
-          customer: {
-              id: 123,
-              first_name: "Oliver",
-              last_name: "Schwartz",
-              email: "john@hostmail.com"
-          },
+      var actionData = {
+        user: {
           id: 123,
-          currency: "HKD",
-          line_items: [
-              {
-                  variant_id: 123,
-                  quantity: 1,
-                  price: "199.2",
-                  product_id: 456,
-                  total_discount: "0.0"
-              },
-              {
-                  variant_id: 124,
-                  quantity: 2,
-                  price: "59.2",
-                  product_id: 556,
-                  total_discount: "10.0"
-              }
-          ]
+          first_name: "Oliver",
+          last_name: "Schwartz",
+          email: "john@hostmail.com"
+        },
+        id: 123,
+        currency: "HKD",
+        line_items: [
+          {
+            variant_id: 123,
+            quantity: 1,
+            price: "199.2",
+            item_id: 456,
+            total_discount: "0.0"
+          },
+          {
+            variant_id: 124,
+            quantity: 2,
+            price: "59.2",
+            item_id: 556,
+            total_discount: "10.0"
+          }
+        ]
       };
-      mt('store', 'zalora');
-      mt('order', orderData);
+      mt('slug', 'zalora');
+      mt('action', actionData);
     </script>
   </body>
 </html>

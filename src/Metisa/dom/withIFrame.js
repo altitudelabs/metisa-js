@@ -3,7 +3,7 @@
  *
  * @private
  * @param  {class} composedClass `composedClass` to be composed.
- * @returns {composedClass.IFrame}
+ * @returns {composeClass.IFrame}
  */
 
 var composeClass = function(composedClass) {
