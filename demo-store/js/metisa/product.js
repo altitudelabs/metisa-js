@@ -19,4 +19,24 @@ $.get('./js/metisa/products.json')
   $('.get-ticket').on('click', function() {
     alert('thank you for purchasing!');
   });
+
+  var mapMovieToMetisaProduct = function(movie) {
+    return {
+      id: movie.imdb_id,
+      name: movie.title,
+      variants: [
+        {
+          id: movie.imdb_id,
+          image_url: movie.image,
+          url: [
+            'https://altitudelabs.github.io/metisa-js/demo-store/single-product#',
+            movie.imdb_id
+          ].join(''),
+          price: 0
+        }
+      ]
+    }
+  }
+
+  mt('product', mapMovieToMetisaProduct(movie));
 });
