@@ -3,9 +3,9 @@
 
 Metisa empowers businesses ...
 
-Our JavaScript SDK will help you easily integrate with Metisa in browser or nodejs environment.
+Our JavaScript SDK will help you easily integrate with Metisa in browser or Node.js environment.
 
-Before installation, you can click [here](https://askmetisa.com/docs/integrations/custom-ecommerce.html) to learn more about the prerequisites and concepts of our **Custom Integration** for e-commerce stores.
+Before installation, you can click [here](https://askmetisa.com/docs/integrations/custom-ecommerce.html) to learn more about the prerequisites and concepts of our **Custom Integration** for e-commerce platforms.
 
 
 ## Installation
@@ -34,7 +34,7 @@ Hack away!
 ```html
 <div class="mt-widget" data-widget-id="1"></div>
 <script type="text/javascript">
-  mt('store', 'metisa');
+  mt('slug', 'metisa');
 
 </script>
 ```

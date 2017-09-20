@@ -1,34 +1,36 @@
 ## Data schema for API endpoints
 
-Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Product and Order endpoints are detailed below.
+Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Item and Action endpoints are detailed below (**required fields** are indicated in **bold**):
 
-### Product data
+### Item data
 
-Product data consists of these key value pairs:
-- `id` Product ID
-- `name` Product name
-- `brand` Product brand name
-- `variants` The list of variants of this product
-  - `id` Variant ID
+Item data consists of these key value pairs:
+- **`id`** Item ID
+- `name` Item name
+- `maker` Value of the attribute to categorize the items
+- **`variants`** The list of variants of this item
+  - **`id`** Variant ID
   - `availability` Number of items available for sale
-  - `image_url` URL of product variant image source
-  - `url` URL to the product variant
-  - `price` Product variant's regular price
-  - `price_discounted` Product variant's discounted price
+  - `image_url` URL of item variant image source
+  - **`url`** URL to the item variant
+  - `price` Item variant's regular price
+  - `price_discounted` Item variant's discounted price
 
-Product information can be tricky, because different e-commerce platforms save products and their variants differently.
+Item information can be tricky, because different e-commerce platforms save items and their variants differently.
 
-In Metisa, we save product variants instead of the product itself. This means there is a specific way to send data about products with and without variants.
+In Metisa, we save item variants instead of the item itself. This means there is a specific way to send data about items with and without variants.
+
+The following are examples of `itemData` handled in different kind of application:
 
 ##### Example 1: Product with variants
 
-For example, if a product has 2 variants, say a pair of shoes with Blue and Green color options, the data object would look like this.
+A product that has a variant with 2 options, e.g. a pair of shoes with Blue and Green color options.
 
 ```js
-var productData = {
+var itemData = {
   id: '81923681',
   name: 'Running Shoes',
-  brand: 'Nike',
+  maker: 'Nike', // brand name
   variants: [
     {
       id: '5953504327',
@@ -36,16 +38,16 @@ var productData = {
       availability: 10,
       image_url: 'https://amazingshoes.com/nike-running-shoes-blue.png',
       url: 'https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504327',
-      price: "99.90",
+      price: '99.90'
       price_discounted: null
     },
     {
       id: '5953504331',
       name: 'Green',
-      availability: 3,
+      availability: 0, // 0 indicates this variant is out of stock
       image_url: 'https://amazingshoes.com/nike-running-shoes-green.png',
       url: 'https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504331',
-      price: "99.90",
+      price: '99.90',
       price_discounted: null
     }
   ]
@@ -54,13 +56,13 @@ var productData = {
 
 ##### Example 2: Product without variants
 
-Now let's say the same pair of shoes has no variants and comes only in a single color and size.
+The same pair of shoes has no variants and comes only in a single color and size.
 
 ```js
-var productData = {
+var itemData = {
   id: '81923681',
   name: 'Running Shoes',
-  brand: 'Nike',
+  maker: 'Nike', // brand name
   variants: [
     {
       id: '81923681',
@@ -68,7 +70,86 @@ var productData = {
       availability: 3,
       image_url: 'https://amazingshoes.com/nike-running-shoes.png',
       url: 'https://amazingshoes.com/products/nike-running-shoes',
-      price: "99.90",
+      price: '99.90',
+      price_discounted: null
+    }
+  ]
+}
+```
+
+##### Example 3: Song with variants
+
+A song released as single and then in an album.
+
+```js
+var itemData = {
+  id: '12334',
+  name: 'Million Reasons',
+  maker: 'Lady Gaga', // artist name
+  variants: [
+    {
+      id: '12334',
+      name: null, // null indicates this song is released as single
+      availability: null,
+      image_url: 'http://www.example.com/million-reasons.jpg',
+      url: 'http://www.example.com/million-reasons',
+      price: null,
+      price_discounted: null
+    },
+    {
+      id: '22345', // album ID
+      name: 'Joanne', // album title
+      availability: null,
+      image_url: 'http://www.example.com/joanne.jpg',
+      url: 'http://www.example.com/joanne/million-reasons',
+      price: null,
+      price_discounted: null
+    }
+  ]
+}
+```
+
+
+##### Example 4: Song without variants
+
+A song released as single.
+
+```js
+var itemData = {
+  id: '12335',
+  name: 'The Cure',
+  maker: 'Lady Gaga', // artist name
+  variants: [
+    {
+      id: '12335',
+      name: null, // null indicates this song is released as single
+      availability: null,
+      image_url: 'http://www.example.com/the-cure.jpg',
+      url: 'http://www.example.com/the-cure',
+      price: null,
+      price_discounted: null
+    }
+  ]
+}
+```
+
+##### Example 5: News article
+
+An article in newspaper app.
+
+```js
+var itemData = {
+  id: '23145',
+  name: 'Home-run beauty, skincare labels turn to natural products such as coffee ground',
+  maker: 'Fashion',
+  variants: [
+    {
+      id: '23145',
+      name: null,
+      availability: null,
+      image_url: 'http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground.jpg',
+      url: 'http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground',
+      price: null,
       price_discounted: null
     }
   ]
@@ -76,58 +157,82 @@ var productData = {
 ```
 
 > **Important:**
-> - Even if a product has no variant, the `variants` array **must** still have a single object describing the product itself. The `variant[0].id` should be identical to `id`, and `name` should be `null`.
-> - If there is no data about number of items available for sale, `availability` should be `null`. Otherwise, it should be an integer greater than or equal to 0.
+> - Even if an item has no variant, the `variants` array **must** still have a single object describing the item itself. The `variant[0].id` should be identical to `id`, and `name` should be `null`.
+> - For non-required (i.e. optional) fields, if there is no data about the fields or the fields are not applicable to the item, those fields should be `null`.
 > - If there are missing fields, Metisa will specify them in the HTTP 400 response.
 
-### Order data
+### Action data
 
-Order data consists of these key value pairs:
-- `id` Order
-- `customer` Data about who just bought from your store
-  - `id` Customer ID
-  - `first_name` Customer first name
-  - `last_name` Customer last name
-  - `email` Customer email address
+Action data consists of these key value pairs:
+- **`id`** Action ID
+- **`user`** Data about who is using your app
+  - `id` User ID
+  - `first_name` User first name
+  - `last_name` User last name
+  - **`email`** User email address
 - `currency` Three-character currency symbol
-- `line_items` The list of products purchased
-  - `variant_id` ID of the product variant
-  - `price` Unit price of the product variant
-  - `quantity` Quantity of the product variant purchased
-  - `product_id` ID of the parent product
+- **`line_items`** The list of items involved in the action
+  - **`variant_id`** ID of the item variant
+  - `price` Unit price of the item variant
+  - `quantity` Quantity of the item variant involved in the action
+  - **`item_id`** ID of the parent item
   - `total_discount` Discount applied to the line item (factoring in quantity)
 
-##### Example Order
+##### Example 1: Product checkouts
 
 ```js
-var orderData = {
+var actionData = {
   id: '823413',
-  customer: {
+  user: {
     id: '3712',
-    first_name: "James",
-    last_name: "Schwartz",
-    email: "james@hostmail.com"
+    first_name: 'James',
+    last_name: 'Schwartz',
+    email: 'james@hostmail.com'
   },
   currency: "USD",
   line_items: [
     {
       variant_id: '5953504331',
       quantity: 1,
-      price: "99.90",
-      product_id: '81923681',
-      total_discount: "0.0"
+      price: '99.90',
+      item_id: '81923681',
+      total_discount: '0.0'
     },
     {
       variant_id: '5953504300',
       quantity: 2,
-      price: "129.90",
-      product_id: '81923622',
-      total_discount: "10.0"
+      price: '129.90',
+      item_id: '81923622',
+      total_discount: '10.0'
+    }
+  ]
+}
+```
+
+##### Example 2: Browsing an news article
+
+```js
+var actionData = {
+  id: '1234',
+  user: {
+    id: '0',
+    first_name: null,
+    last_name: null,
+    email: 'tester@exmaple.com',
+  },
+  currency: null,
+  line_items: [
+    {
+      variant_id: '34454',
+      quantity: null,
+      price: null,
+      item_id: '34454',
+      total_discount: null
     }
   ]
 }
 ```
 
 > **Important:**
-> - If your store supports "guest" checkouts, you may not generate a `customer.id` and it can be left as `0` or `null`. Metisa will then switch strategy to use email to identify guest customers.
+> - If your store supports "guest" users, you may not generate a `user.id` and it can be left as `0` or `null`. Metisa will then switch strategy to use email to identify guest users.
 > - If there are missing fields, Metisa will specify them in the HTTP 400 response.
