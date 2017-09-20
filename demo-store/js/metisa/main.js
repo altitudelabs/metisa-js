@@ -15,7 +15,7 @@ var mapMovieToMetisaProduct = function(movie) {
   }
 }
 
-$.get('/js/metisa/products.json')
+$.get('./js/metisa/products.json')
 .then(function(result) {
   result = result.filter(function(movie) { return !!movie.poster && movie.poster.imdb; });
   var metisaProducts = result.map(function(movie) {
@@ -23,7 +23,7 @@ $.get('/js/metisa/products.json')
 
     return mapMovieToMetisaProduct(
       Object.assign(movie, {
-        image: '/img/imdb/' + image
+        image: './img/imdb/' + image
       })
     );
   });

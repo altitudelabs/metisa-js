@@ -1,4 +1,4 @@
-$.get('/js/metisa/products.json')
+$.get('./js/metisa/products.json')
 .then(function(result) {
   result = result.filter(function(movie) { return !!movie.poster && movie.poster.imdb; });
   result = result.map(function(movie) {
@@ -11,7 +11,7 @@ $.get('/js/metisa/products.json')
         movie.rating >= 8 ? 'zmdi-star' : movie.rating > 7 ? 'zmdi-star-half' : "",
         movie.rating >= 10 ? 'zmdi-star' : movie.rating > 9 ? 'zmdi-star-half' : ""
       ],
-      image: '/img/imdb/' + image
+      image: './img/imdb/' + image
     });
   });
   result.sort(function(a, b) {

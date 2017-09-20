@@ -1,4 +1,4 @@
-$.get('/js/metisa/products.json')
+$.get('./js/metisa/products.json')
 .then(function(result) {
   var imdbId = location.hash.slice(1);
   var movie = result.find(function(r) { return r.imdb_id === imdbId; });
@@ -9,7 +9,7 @@ $.get('/js/metisa/products.json')
   }
   var image = movie.poster.imdb ? movie.poster.imdb.slice('http://ia.media-imdb.com/images/M/'.length) : "";
   movie = Object.assign(movie, {
-    image: '/img/imdb/' + image
+    image: './img/imdb/' + image
   });
 
   var source = $("#movie-detail").html();
