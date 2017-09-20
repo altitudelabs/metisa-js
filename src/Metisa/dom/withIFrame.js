@@ -2,7 +2,7 @@
  * Returns {@link composeClass.IFrame} composed with `composedClass`.
  *
  * @private
- * @param  {class} `composedClass` to be composed.
+ * @param  {class} composedClass `composedClass` to be composed.
  * @returns {composedClass.IFrame}
  */
 
