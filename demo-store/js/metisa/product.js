@@ -9,7 +9,7 @@ $.get('./js/metisa/products.json')
   }
   var image = movie.poster.imdb ? movie.poster.imdb.slice('http://ia.media-imdb.com/images/M/'.length) : "";
   movie = Object.assign(movie, {
-    image: './img/imdb/' + image
+    image: 'https://altitudelabs.github.io/metisa-js/demo-store/img/imdb/' + image
   });
 
   var source = $("#movie-detail").html();
@@ -28,6 +28,7 @@ $.get('./js/metisa/products.json')
         {
           id: movie.imdb_id,
           image_url: movie.image,
+          name: movie.title,
           url: [
             'https://altitudelabs.github.io/metisa-js/demo-store/single-product#',
             movie.imdb_id
