@@ -209,9 +209,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="Data schema for API endpoints"><a name="Data schema for API endpoints" class="plugin-anchor" href="#Data%20schema%20for%20API%20endpoints"><i class="fa fa-link" aria-hidden="true"></i></a>Data schema for API endpoints</h2>
+                                <h2 id="Data-schema for API endpoints"><a name="Data-schema for API endpoints" class="plugin-anchor" href="#Data-schema%20for%20API%20endpoints"><i class="fa fa-link" aria-hidden="true"></i></a>Data schema for API endpoints</h2>
 <p>Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Item and Action endpoints are detailed below (<strong>required fields</strong> are indicated in <strong>bold</strong>):</p>
-<h3 id="Item data"><a name="Item data" class="plugin-anchor" href="#Item%20data"><i class="fa fa-link" aria-hidden="true"></i></a>Item data</h3>
+<h3 id="Item-data"><a name="Item-data" class="plugin-anchor" href="#Item-data"><i class="fa fa-link" aria-hidden="true"></i></a>Item data</h3>
 <p>Item data consists of these key value pairs:</p>
 <ul>
 <li><strong><code>id</code></strong> Item ID</li>
@@ -230,7 +230,7 @@
 <p>Item information can be tricky, because different e-commerce platforms save items and their variants differently.</p>
 <p>In Metisa, we save item variants instead of the item itself. This means there is a specific way to send data about items with and without variants.</p>
 <p>The following are examples of <code>itemData</code> handled in different kind of application:</p>
-<h5 id="Example 1: Product with variants"><a name="Example 1: Product with variants" class="plugin-anchor" href="#Example%201:%20Product%20with%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product with variants</h5>
+<h5 id="Example-1: Product with variants"><a name="Example-1: Product with variants" class="plugin-anchor" href="#Example-1:%20Product%20with%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product with variants</h5>
 <p>A product that has a variant with 2 options, e.g. a pair of shoes with Blue and Green color options.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;81923681&apos;</span>,
@@ -258,7 +258,7 @@
   ]
 }
 </code></pre>
-<h5 id="Example 2: Product without variants"><a name="Example 2: Product without variants" class="plugin-anchor" href="#Example%202:%20Product%20without%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Product without variants</h5>
+<h5 id="Example-2: Product without variants"><a name="Example-2: Product without variants" class="plugin-anchor" href="#Example-2:%20Product%20without%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Product without variants</h5>
 <p>The same pair of shoes has no variants and comes only in a single color and size.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;81923681&apos;</span>,
@@ -277,7 +277,7 @@
   ]
 }
 </code></pre>
-<h5 id="Example 3: Song with variants"><a name="Example 3: Song with variants" class="plugin-anchor" href="#Example%203:%20Song%20with%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 3: Song with variants</h5>
+<h5 id="Example-3: Song with variants"><a name="Example-3: Song with variants" class="plugin-anchor" href="#Example-3:%20Song%20with%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 3: Song with variants</h5>
 <p>A song released as single and then in an album.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;12334&apos;</span>,
@@ -305,7 +305,7 @@
   ]
 }
 </code></pre>
-<h5 id="Example 4: Song without variants"><a name="Example 4: Song without variants" class="plugin-anchor" href="#Example%204:%20Song%20without%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 4: Song without variants</h5>
+<h5 id="Example-4: Song without variants"><a name="Example-4: Song without variants" class="plugin-anchor" href="#Example-4:%20Song%20without%20variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 4: Song without variants</h5>
 <p>A song released as single.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;12335&apos;</span>,
@@ -324,7 +324,7 @@
   ]
 }
 </code></pre>
-<h5 id="Example 5: News article"><a name="Example 5: News article" class="plugin-anchor" href="#Example%205:%20News%20article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 5: News article</h5>
+<h5 id="Example-5: News article"><a name="Example-5: News article" class="plugin-anchor" href="#Example-5:%20News%20article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 5: News article</h5>
 <p>An article in newspaper app.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;23145&apos;</span>,
@@ -351,7 +351,7 @@
 <li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
 </ul>
 </blockquote>
-<h3 id="Action data"><a name="Action data" class="plugin-anchor" href="#Action%20data"><i class="fa fa-link" aria-hidden="true"></i></a>Action data</h3>
+<h3 id="Action-data"><a name="Action-data" class="plugin-anchor" href="#Action-data"><i class="fa fa-link" aria-hidden="true"></i></a>Action data</h3>
 <p>Action data consists of these key value pairs:</p>
 <ul>
 <li><strong><code>id</code></strong> Action ID</li>
@@ -372,7 +372,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="Example 1: Product checkouts"><a name="Example 1: Product checkouts" class="plugin-anchor" href="#Example%201:%20Product%20checkouts"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product checkouts</h5>
+<h5 id="Example-1: Product checkouts"><a name="Example-1: Product checkouts" class="plugin-anchor" href="#Example-1:%20Product%20checkouts"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product checkouts</h5>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> actionData = {
   id: <span class="hljs-string">&apos;823413&apos;</span>,
   user: {
@@ -400,7 +400,7 @@
   ]
 }
 </code></pre>
-<h5 id="Example 2: Browsing an news article"><a name="Example 2: Browsing an news article" class="plugin-anchor" href="#Example%202:%20Browsing%20an%20news%20article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Browsing an news article</h5>
+<h5 id="Example-2: Browsing an news article"><a name="Example-2: Browsing an news article" class="plugin-anchor" href="#Example-2:%20Browsing%20an%20news%20article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Browsing an news article</h5>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> actionData = {
   id: <span class="hljs-string">&apos;1234&apos;</span>,
   user: {
@@ -471,7 +471,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-27T07:28:40.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T07:51:18.044Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-27T07:28:40.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T08:01:09.205Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
