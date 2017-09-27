@@ -32,6 +32,7 @@ function mapMovieToMetisaProduct(movie) {
   return {
     id: movie.imdb_id,
     name: movie.title,
+    maker: null,
     variants: [
       {
         id: movie.imdb_id,
