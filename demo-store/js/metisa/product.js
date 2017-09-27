@@ -24,7 +24,7 @@ $.get('./js/metisa/products.json')
   var mapMovieToMetisaOrder = function(movie) {
     return {
       id: movie.imdb_id,
-      customer: {
+      user: {
         id: null,
         first_name: 'John',
         last_name: 'Doe',
