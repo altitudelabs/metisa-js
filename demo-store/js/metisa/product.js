@@ -36,7 +36,7 @@ $.get('./js/metisa/products.json')
           price: 0,
           variant_id: movie.imdb_id,
           quantity: 1,
-          product_id: movie.imdb_id,
+          item_id: movie.imdb_id,
         }
       ]
     };
