@@ -212,7 +212,8 @@ class MetisaDom extends MetisawithIFrame {
           console.log('Success');
       },
       error: function (data, statusText, xhr) {
-          console.log('Error: '+xhr);
+        console.log('Error: ' + xhr);
+        console.log(data.responseJSON);
       }
     });
   }
@@ -239,7 +240,8 @@ class MetisaDom extends MetisawithIFrame {
           console.log('Success');
       },
       error: function (data, statusText, xhr) {
-          console.log('Error: '+xhr);
+        console.log('Error: ' + xhr);
+        console.log(data.responseJSON);
       }
     });
   }
