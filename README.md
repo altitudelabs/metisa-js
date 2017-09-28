@@ -1,17 +1,37 @@
-# Metisa JS
+# Metisa: Personalization engine for websites
 
-_JS sdk for Metisa API_
+_Web Browser (Javascript) SDK for Metisa_
 
-You can find our official documentation [here](https://altitudelabs.github.io/metisa-js/doc/)
+Metisa allows any website to implement personalization with a few lines of client side Javascript code.
 
-**Supports:**
-- Browser
+This package is intended for use on the client side (i.e. web browser environment) and works with a Metisa account which can be created for free [here](https://askmetisa.com/create).
 
-**Upcoming features**
+Features include:
+
+* 'Things You May Like' widget
+* 'Trending Items' widget
+* 'New Items' widget
+* 'Related Items' widget
+* Send personalized emails to your customers
+* Customer analytics including predictive CLV, predictive churn and customer personas
+* Customer segmentation
+
+This SDK is currently in Beta! Your feedback and comments are most welcome at hello@askmetisa.com.
+
+## Demo
+
+[Demo](https://altitudelabs.github.io/metisa-js/demo-movie-app/)
+
+## Installation
+
+Read our [docs](https://altitudelabs.github.io/metisa-js/doc/)
+
+## Upcoming features
+
 - Support for Node.js
 - Support for React Native
 
-### For Developers
+## Development
 
 **Folder structure**
 
@@ -33,13 +53,6 @@ You can find our official documentation [here](https://altitudelabs.github.io/me
 |   ├── node.js
 |   |   entry file for node sdk
 |   ├── util.js
-├── sample
-|   Sample environments for demo test
-|   ├── node
-|   |   sample node express server that imports metisa for node
-|   ├── browser
-|   |   sample static html files
-|   |   imports metisa for browser via script tag
 ├── dist
 |   contains generated files
 |   ├── browser.js
@@ -51,12 +64,24 @@ You can find our official documentation [here](https://altitudelabs.github.io/me
 |   This directory will be used to deploy documentation to Github pages
 ├── gh-page
 |   Directory deployed to Github Pages
-|   contains `/doc` and `/demo-store`
+|   contains `/doc` and `/demo-movie-app`
 ```
 
 **Run it locally**
 
-first run `npm install`
+1. Install packages
+
+```
+npm install
+```
+
+2. Run a local version with http-server
+
+```
+npm install -g http-server
+cd gh-page/demo-movie-app
+http-server .
+```
 
 *Browser SDK*
 1. open sample/browser/index.html from a browser
@@ -75,7 +100,6 @@ Refresh the browser to see the reflected change
 
 `npm run build-doc:watch`
 
-
 **Deploying Documentation**
 
 Prerequisite for this is [Gitbook CLI](https://www.npmjs.com/package/gitbook-cli)
@@ -84,4 +108,5 @@ After updating contents inside `/gh-page`, you can deploy by simply running
 ```
 npm run deploy-gh-page
 ```
-You will be able to see the documentation [here](https://altitudelabs.github.io/metisa-js/doc/), and the demo store [here](https://altitudelabs.github.io/metisa-js/demo-store/)
+
+You will be able to see the documentation [here](https://altitudelabs.github.io/metisa-js/doc/), and the demo store [here](https://altitudelabs.github.io/metisa-js/demo-movie-app/)

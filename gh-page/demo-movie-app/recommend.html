@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Metisa Movie Recommender Demo - Movie List</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico?v=3">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row text-center">
+        <h1><a href="index.html">Movie recommender demo</a></h1>
+        <div class="alert alert-info">This page demonstrates how you can install 'Things You May Like' and 'Trending' recommendations on your website.</div>
+
+        <!-- Metisa 'Things You May Like' widget starts here -->
+        <div class="mt-widget mt-widget-customer" data-widget-id="1930"></div>
+        <!-- Metisa 'Things You May Like' widget ends here -->
+
+        <!-- Metisa Trending widget starts here -->
+        <div class="mt-widget" data-widget-id="1931"></div>
+        <!-- Metisa Trending widget ends here -->
+      </div>
+    </div>
+
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v4.0.10.js"></script>
+    <script src="js/cookie.js"></script>
+
+    <!-- Metisa integration starts here. Make sure you include metisa.js in every page of your site -->
+    <script src="js/metisa.js"></script>
+
+    <script>
+      // 1. Specify customer id on widget HTML
+      var userId = readSessionCookie();
+      $('.mt-widget-customer').attr('data-customer-id', userId);
+
+      // 1. Identify your account slug to start Metisa
+      mt('slug', 'demo');
+    </script>
+    <!-- Metisa integration ends here -->
+  </body>
+</html>

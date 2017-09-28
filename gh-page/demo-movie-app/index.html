@@ -1,0 +1,175 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Metisa Movie Recommender Demo - Movie List</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/x-icon" href="img/favicon.ico?v=3">
+
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row movie-header text-center">
+				<h1><a href="index.html">Movie recommender demo</a></h1>
+				<div class="alert alert-info">
+					This page demonstrates how you can send user actions to Metisa. Metisa uses these actions to create personalized recommendations for each user. Metisa also needs a list of items on your site that can be recommended. This is sent to Metisa on your <a href="/item#tt0109040">item detail</a> page.</p>
+				</div>
+				<h2 class="title-border">Choose a few movies you like</h2>
+				<a class="btn btn-primary btn-recommend" href="recommend.html">See Recommendations</a>
+			</div>
+			<div class="row movie-list"></div>
+		</div>
+
+		<script src="js/jquery-1.12.0.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/handlebars-v4.0.10.js"></script>
+		<script src="js/cookie.js"></script>
+
+		<!-- Metisa integration starts here. Make sure you include metisa.js in every page of your site -->
+		<script src="js/metisa.js"></script>
+
+		<script>
+			// In this example, each user is identified by a session cookie
+			// In a real app, you'll have both registered users and unregistered users
+			var userId = readSessionCookie();
+			if(!userId) {
+			  	createSessionCookie();
+			  	userId = readSessionCookie();
+			}
+
+			// 1. Identify your account slug to start Metisa
+			mt('slug', 'demo');
+
+			$.get('./js/items.json')
+			.then(function(result) {
+			  renderMovieList(result)
+			  renderRecommendButton();
+
+			  $('.item-action').click(function () {
+			  	var $movie = $(this)
+					var movieId = $movie.data('id');
+					$movie.toggleClass('liked');
+					toggleMovie(movieId);
+
+				  // 2. When user clicks on a heart, send action to Metisa
+				  // Metisa uses this information to train its recommendation engine
+				  mt('action', mapMovieToMetisaActionObject(movieId));
+				});
+			});
+
+			function renderMovieList(result) {
+				var favMovies = getLikedMovies();
+
+			  result = result.filter(function(movie) { return !!movie.poster && movie.poster.imdb; });
+			  result = result.map(function(movie) {
+			    var image = movie.poster.imdb ? movie.poster.imdb.slice('http://ia.media-imdb.com/images/M/'.length) : "";
+
+			    return Object.assign(movie, {
+			      stars: [
+			        movie.rating >= 2 ? 'zmdi-star' : movie.rating > 1 ? 'zmdi-star-half' : "",
+			        movie.rating >= 4 ? 'zmdi-star' : movie.rating > 3 ? 'zmdi-star-half' : "",
+			        movie.rating >= 6 ? 'zmdi-star' : movie.rating > 5 ? 'zmdi-star-half' : "",
+			        movie.rating >= 8 ? 'zmdi-star' : movie.rating > 7 ? 'zmdi-star-half' : "",
+			        movie.rating >= 10 ? 'zmdi-star' : movie.rating > 9 ? 'zmdi-star-half' : ""
+			      ],
+			      image: './img/imdb/' + image,
+			      liked: favMovies.indexOf(movie.imdb_id) !== -1,
+			    });
+			  });
+			  result.sort(function(a, b) {
+			    if (a.title < b.title) return -1;
+			    if (a.title > b.title) return 1;
+			    return 0;
+			  });
+			  var source = $("#movie-item").html();
+			  var template = Handlebars.compile(source);
+			  $('.movie-list').html(result.map(template));
+			}
+
+			function mapMovieToMetisaActionObject(movieId) {
+		    return {
+		      id: movieId,
+		      user: {
+		        id: userId,
+		        first_name: 'Anonymous User',
+		        last_name: userId,
+		      },
+		      currency: 'USD',
+		      line_items: [{
+	          price: 0,
+	          variant_id: movieId,
+	          quantity: 1,
+	          item_id: movieId,
+          }]
+		    };
+		  };
+
+			function likeMovie(movieId) {
+				var data = readCookie('movies');
+				movies = JSON.parse(data) || [];
+				movies.push(movieId);
+
+				createCookie('movies', JSON.stringify(movies), '');
+			}
+
+			function unlikeMovie(movieId) {
+				var data = readCookie('movies');
+				movies = JSON.parse(data) || [];
+
+				var index = movies.indexOf(movieId);
+				if (index > -1) {
+				   movies.splice(index, 1);
+				}
+
+				createCookie('movies', JSON.stringify(movies), '');
+			}
+
+			function renderRecommendButton() {
+				var data = readCookie('movies');
+				movies = JSON.parse(data) || [];
+
+				var noun = movies.length === 1 ? 'movie' : 'movies';
+				var message = 'See Recommendations (based on ' + movies.length + ' ' + noun + ' liked)';
+				$('.btn-recommend').html(message);
+			}
+
+			function toggleMovie(movieId) {
+				var data = readCookie('movies');
+				movies = JSON.parse(data) || [];
+
+				var index = movies.indexOf(movieId);
+				if (index > -1) {
+				   movies.splice(index, 1);
+				} else {
+					movies.push(movieId);
+				}
+
+				createCookie('movies', JSON.stringify(movies), '');
+				renderRecommendButton();
+			}
+
+			function getLikedMovies() {
+				var data = readCookie('movies');
+				movies = JSON.parse(data) || [];
+				return movies;
+			}
+		</script>
+		<!-- Metisa integration ends here -->
+
+		<script id="movie-item" type="text/x-handlebars-template">
+			<div class="col-md-2">
+				<div class="item">
+					<div class="item-action{{#if liked }} liked{{/if}}" data-id="{{imdb_id}}"><i class="glyphicon glyphicon-heart"></i></div>
+					<a class="item-img" href="./item#{{imdb_id}}"><img src="{{image}}" alt="" /></a>
+					<div class="item-info"><a href="#">{{title}}</a></div>
+				</div>
+			</div>
+		</script>
+	</body>
+</html>
