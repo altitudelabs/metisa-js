@@ -209,17 +209,33 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="data-schema-for-api-endpoints"><a name="data-schema-for-api-endpoints" class="plugin-anchor" href="#data-schema-for-api-endpoints"><i class="fa fa-link" aria-hidden="true"></i></a>Data schema for API endpoints</h2>
-<p>Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Product and Order endpoints are detailed below.</p>
-<h3 id="product-data"><a name="product-data" class="plugin-anchor" href="#product-data"><i class="fa fa-link" aria-hidden="true"></i></a>Product data</h3>
-<p>Product information can be tricky, because different e-commerce platforms save products and their variants differently.</p>
-<p>In Metisa, we save product variants instead of the product itself. This means there is a specific way to send data about products with and without variants.</p>
-<h5 id="example-1-product-with-variants"><a name="example-1-product-with-variants" class="plugin-anchor" href="#example-1-product-with-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product with variants</h5>
-<p>For example, if a product has 2 variants, say a pair of shoes with Blue and Green color options, the data object would look like this.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> productData = {
+                                <h2 id="Data-schema-for-API-endpoints"><a name="Data-schema-for-API-endpoints" class="plugin-anchor" href="#Data-schema-for-API-endpoints"><i class="fa fa-link" aria-hidden="true"></i></a>Data schema for API endpoints</h2>
+<p>Like every API, there is a fixed format in the data that the Metisa endpoints expect. The schema for Item and Action endpoints are detailed below (<strong>required fields</strong> are indicated in <strong>bold</strong>):</p>
+<h3 id="Item-data"><a name="Item-data" class="plugin-anchor" href="#Item-data"><i class="fa fa-link" aria-hidden="true"></i></a>Item data</h3>
+<p>Item data consists of these key value pairs:</p>
+<ul>
+<li><strong><code>id</code></strong> Item ID</li>
+<li><code>name</code> Item name</li>
+<li><code>maker</code> Value of the attribute to categorize the items</li>
+<li><strong><code>variants</code></strong> The list of variants of this item<ul>
+<li><strong><code>id</code></strong> Variant ID</li>
+<li><code>availability</code> Number of items available for sale</li>
+<li><code>image_url</code> URL of item variant image source</li>
+<li><strong><code>url</code></strong> URL to the item variant</li>
+<li><code>price</code> Item variant&apos;s regular price</li>
+<li><code>price_discounted</code> Item variant&apos;s discounted price</li>
+</ul>
+</li>
+</ul>
+<p>Item information can be tricky, because different e-commerce platforms save items and their variants differently.</p>
+<p>In Metisa, we save item variants instead of the item itself. This means there is a specific way to send data about items with and without variants.</p>
+<p>The following are examples of <code>itemData</code> handled in different kind of application:</p>
+<h5 id="Example-1--Product-with-variants"><a name="Example-1--Product-with-variants" class="plugin-anchor" href="#Example-1--Product-with-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product with variants</h5>
+<p>A product that has a variant with 2 options, e.g. a pair of shoes with Blue and Green color options.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;81923681&apos;</span>,
   name: <span class="hljs-string">&apos;Running Shoes&apos;</span>,
-  brand: <span class="hljs-string">&apos;Nike&apos;</span>,
+  maker: <span class="hljs-string">&apos;Nike&apos;</span>, <span class="hljs-comment">// brand name</span>
   variants: [
     {
       id: <span class="hljs-string">&apos;5953504327&apos;</span>,
@@ -227,27 +243,27 @@
       availability: <span class="hljs-number">10</span>,
       image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-blue.png&apos;</span>,
       url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504327&apos;</span>,
-      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price: <span class="hljs-string">&apos;99.90&apos;</span>
       price_discounted: <span class="hljs-literal">null</span>
     },
     {
       id: <span class="hljs-string">&apos;5953504331&apos;</span>,
       name: <span class="hljs-string">&apos;Green&apos;</span>,
-      availability: <span class="hljs-number">3</span>,
+      availability: <span class="hljs-number">0</span>, <span class="hljs-comment">// 0 indicates this variant is out of stock</span>
       image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-green.png&apos;</span>,
       url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504331&apos;</span>,
-      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price: <span class="hljs-string">&apos;99.90&apos;</span>,
       price_discounted: <span class="hljs-literal">null</span>
     }
   ]
 }
 </code></pre>
-<h5 id="example-2-product-with-no-variants"><a name="example-2-product-with-no-variants" class="plugin-anchor" href="#example-2-product-with-no-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Product with no variants</h5>
-<p>Now let&apos;s say the same pair of shoes has no variants and comes only in a single color and size.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> productData = {
+<h5 id="Example-2--Product-without-variants"><a name="Example-2--Product-without-variants" class="plugin-anchor" href="#Example-2--Product-without-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Product without variants</h5>
+<p>The same pair of shoes has no variants and comes only in a single color and size.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
   id: <span class="hljs-string">&apos;81923681&apos;</span>,
   name: <span class="hljs-string">&apos;Running Shoes&apos;</span>,
-  brand: <span class="hljs-string">&apos;Nike&apos;</span>,
+  maker: <span class="hljs-string">&apos;Nike&apos;</span>, <span class="hljs-comment">// brand name</span>
   variants: [
     {
       id: <span class="hljs-string">&apos;81923681&apos;</span>,
@@ -255,70 +271,163 @@
       availability: <span class="hljs-number">3</span>,
       image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes.png&apos;</span>,
       url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes&apos;</span>,
-      price: <span class="hljs-string">&quot;99.90&quot;</span>,
+      price: <span class="hljs-string">&apos;99.90&apos;</span>,
       price_discounted: <span class="hljs-literal">null</span>
     }
   ]
 }
 </code></pre>
+<h5 id="Example-3--Song-with-variants"><a name="Example-3--Song-with-variants" class="plugin-anchor" href="#Example-3--Song-with-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 3: Song with variants</h5>
+<p>A song released as single and then in an album.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
+  id: <span class="hljs-string">&apos;12334&apos;</span>,
+  name: <span class="hljs-string">&apos;Million Reasons&apos;</span>,
+  maker: <span class="hljs-string">&apos;Lady Gaga&apos;</span>, <span class="hljs-comment">// artist name</span>
+  variants: [
+    {
+      id: <span class="hljs-string">&apos;12334&apos;</span>,
+      name: <span class="hljs-literal">null</span>, <span class="hljs-comment">// null indicates this song is released as single</span>
+      availability: <span class="hljs-literal">null</span>,
+      image_url: <span class="hljs-string">&apos;http://www.example.com/million-reasons.jpg&apos;</span>,
+      url: <span class="hljs-string">&apos;http://www.example.com/million-reasons&apos;</span>,
+      price: <span class="hljs-literal">null</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    },
+    {
+      id: <span class="hljs-string">&apos;22345&apos;</span>, <span class="hljs-comment">// album ID</span>
+      name: <span class="hljs-string">&apos;Joanne&apos;</span>, <span class="hljs-comment">// album title</span>
+      availability: <span class="hljs-literal">null</span>,
+      image_url: <span class="hljs-string">&apos;http://www.example.com/joanne.jpg&apos;</span>,
+      url: <span class="hljs-string">&apos;http://www.example.com/joanne/million-reasons&apos;</span>,
+      price: <span class="hljs-literal">null</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<h5 id="Example-4--Song-without-variants"><a name="Example-4--Song-without-variants" class="plugin-anchor" href="#Example-4--Song-without-variants"><i class="fa fa-link" aria-hidden="true"></i></a>Example 4: Song without variants</h5>
+<p>A song released as single.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
+  id: <span class="hljs-string">&apos;12335&apos;</span>,
+  name: <span class="hljs-string">&apos;The Cure&apos;</span>,
+  maker: <span class="hljs-string">&apos;Lady Gaga&apos;</span>, <span class="hljs-comment">// artist name</span>
+  variants: [
+    {
+      id: <span class="hljs-string">&apos;12335&apos;</span>,
+      name: <span class="hljs-literal">null</span>, <span class="hljs-comment">// null indicates this song is released as single</span>
+      availability: <span class="hljs-literal">null</span>,
+      image_url: <span class="hljs-string">&apos;http://www.example.com/the-cure.jpg&apos;</span>,
+      url: <span class="hljs-string">&apos;http://www.example.com/the-cure&apos;</span>,
+      price: <span class="hljs-literal">null</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<h5 id="Example-5--News-article"><a name="Example-5--News-article" class="plugin-anchor" href="#Example-5--News-article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 5: News article</h5>
+<p>An article in newspaper app.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> itemData = {
+  id: <span class="hljs-string">&apos;23145&apos;</span>,
+  name: <span class="hljs-string">&apos;Home-run beauty, skincare labels turn to natural products such as coffee ground&apos;</span>,
+  maker: <span class="hljs-string">&apos;Fashion&apos;</span>,
+  variants: [
+    {
+      id: <span class="hljs-string">&apos;23145&apos;</span>,
+      name: <span class="hljs-literal">null</span>,
+      availability: <span class="hljs-literal">null</span>,
+      image_url: <span class="hljs-string">&apos;http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground.jpg&apos;</span>,
+      url: <span class="hljs-string">&apos;http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground&apos;</span>,
+      price: <span class="hljs-literal">null</span>,
+      price_discounted: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<blockquote>
 <p><strong>Important:</strong></p>
 <ul>
-<li>Even if a product has no variant, the <code>variants</code> array <strong>must</strong> still have a single object describing the product itself. The <code>variant[0].id</code> should be identical to <code>id</code>, and <code>name</code> should be <code>null</code>.</li>
+<li>Even if an item has no variant, the <code>variants</code> array <strong>must</strong> still have a single object describing the item itself. The <code>variant[0].id</code> should be identical to <code>id</code>, and <code>name</code> should be <code>null</code>.</li>
+<li>For non-required (i.e. optional) fields, if there is no data about the fields or the fields are not applicable to the item, those fields should be <code>null</code>.</li>
 <li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
 </ul>
-<h3 id="order-data"><a name="order-data" class="plugin-anchor" href="#order-data"><i class="fa fa-link" aria-hidden="true"></i></a>Order data</h3>
-<p>Order data consist of these key value pairs:</p>
+</blockquote>
+<h3 id="Action-data"><a name="Action-data" class="plugin-anchor" href="#Action-data"><i class="fa fa-link" aria-hidden="true"></i></a>Action data</h3>
+<p>Action data consists of these key value pairs:</p>
 <ul>
-<li><code>id</code> ID of this order</li>
-<li><code>customer</code> Data about who just bought from your store<ul>
-<li><code>id</code> ID of the customer, <code>null</code> means &quot;guest&quot; checkout</li>
-<li><code>first_name</code> First name</li>
-<li><code>last_name</code> Last name</li>
-<li><code>email</code> Email address</li>
+<li><strong><code>id</code></strong> Action ID</li>
+<li><strong><code>user</code></strong> Data about who is using your app<ul>
+<li><code>id</code> User ID</li>
+<li><code>first_name</code> User first name</li>
+<li><code>last_name</code> User last name</li>
+<li><strong><code>email</code></strong> User email address</li>
 </ul>
 </li>
-<li><code>currency</code> Three character currency symbol</li>
-<li><code>line_items</code> The list of products purchased<ul>
-<li><code>variant_id</code> The ID of the product <em>variant</em> (or product ID if no variant)</li>
-<li><code>price</code> Unit price of the product variant</li>
-<li><code>quantity</code> Quantity of the product variant purchased</li>
-<li><code>product_id</code> ID of the parent product</li>
+<li><code>currency</code> Three-character currency symbol</li>
+<li><strong><code>line_items</code></strong> The list of items involved in the action<ul>
+<li><strong><code>variant_id</code></strong> ID of the item variant</li>
+<li><code>price</code> Unit price of the item variant</li>
+<li><code>quantity</code> Quantity of the item variant involved in the action</li>
+<li><strong><code>item_id</code></strong> ID of the parent item</li>
 <li><code>total_discount</code> Discount applied to the line item (factoring in quantity)</li>
 </ul>
 </li>
 </ul>
-<h5 id="example-order"><a name="example-order" class="plugin-anchor" href="#example-order"><i class="fa fa-link" aria-hidden="true"></i></a>Example order</h5>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> orderData = {
+<h5 id="Example-1--Product-checkouts"><a name="Example-1--Product-checkouts" class="plugin-anchor" href="#Example-1--Product-checkouts"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product checkouts</h5>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> actionData = {
   id: <span class="hljs-string">&apos;823413&apos;</span>,
-  customer: {
+  user: {
     id: <span class="hljs-string">&apos;3712&apos;</span>,
-    first_name: <span class="hljs-string">&quot;James&quot;</span>,
-    last_name: <span class="hljs-string">&quot;Schwartz&quot;</span>,
-    email: <span class="hljs-string">&quot;james@hostmail.com&quot;</span>
+    first_name: <span class="hljs-string">&apos;James&apos;</span>,
+    last_name: <span class="hljs-string">&apos;Schwartz&apos;</span>,
+    email: <span class="hljs-string">&apos;james@hostmail.com&apos;</span>
   },
   currency: <span class="hljs-string">&quot;USD&quot;</span>,
   line_items: [
     {
       variant_id: <span class="hljs-string">&apos;5953504331&apos;</span>,
       quantity: <span class="hljs-number">1</span>,
-      price: <span class="hljs-string">&quot;99.90&quot;</span>,
-      product_id: <span class="hljs-string">&apos;81923681&apos;</span>,
-      total_discount: <span class="hljs-string">&quot;0.0&quot;</span>
+      price: <span class="hljs-string">&apos;99.90&apos;</span>,
+      item_id: <span class="hljs-string">&apos;81923681&apos;</span>,
+      total_discount: <span class="hljs-string">&apos;0.0&apos;</span>
     },
     {
       variant_id: <span class="hljs-string">&apos;5953504300&apos;</span>,
       quantity: <span class="hljs-number">2</span>,
-      price: <span class="hljs-string">&quot;129.90&quot;</span>,
-      product_id: <span class="hljs-string">&apos;81923622&apos;</span>,
-      total_discount: <span class="hljs-string">&quot;10.0&quot;</span>
+      price: <span class="hljs-string">&apos;129.90&apos;</span>,
+      item_id: <span class="hljs-string">&apos;81923622&apos;</span>,
+      total_discount: <span class="hljs-string">&apos;10.0&apos;</span>
     }
   ]
 }
 </code></pre>
+<h5 id="Example-2--Browsing-an-news-article"><a name="Example-2--Browsing-an-news-article" class="plugin-anchor" href="#Example-2--Browsing-an-news-article"><i class="fa fa-link" aria-hidden="true"></i></a>Example 2: Browsing an news article</h5>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> actionData = {
+  id: <span class="hljs-string">&apos;1234&apos;</span>,
+  user: {
+    id: <span class="hljs-string">&apos;0&apos;</span>,
+    first_name: <span class="hljs-literal">null</span>,
+    last_name: <span class="hljs-literal">null</span>,
+    email: <span class="hljs-string">&apos;tester@exmaple.com&apos;</span>,
+  },
+  currency: <span class="hljs-literal">null</span>,
+  line_items: [
+    {
+      variant_id: <span class="hljs-string">&apos;34454&apos;</span>,
+      quantity: <span class="hljs-literal">null</span>,
+      price: <span class="hljs-literal">null</span>,
+      item_id: <span class="hljs-string">&apos;34454&apos;</span>,
+      total_discount: <span class="hljs-literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<blockquote>
 <p><strong>Important:</strong></p>
 <ul>
+<li>If your store supports &quot;guest&quot; users, you may not generate a <code>user.id</code> and it can be left as <code>0</code> or <code>null</code>. Metisa will then switch strategy to use email to identify guest users.</li>
 <li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
 </ul>
+</blockquote>
 
                                 
                                 </section>
@@ -362,7 +471,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-13T05:50:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-19T09:19:18.651Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-27T08:31:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T08:42:44.852Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

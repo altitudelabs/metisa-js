@@ -209,34 +209,45 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="browser"><a name="browser" class="plugin-anchor" href="#browser"><i class="fa fa-link" aria-hidden="true"></i></a>Browser</h2>
+                                <h2 id="Browser"><a name="Browser" class="plugin-anchor" href="#Browser"><i class="fa fa-link" aria-hidden="true"></i></a>Browser</h2>
 <p>The <code>browser.js</code> script makes HTTP requests that:</p>
 <ul>
-<li>Sends product and order data to Metisa server</li>
-<li>Gets widget HTML and render widget on your site</li>
+<li>Sends item and action data browsed by users to Metisa server</li>
+<li>Gets recommendation widget HTML and render widget on your site</li>
 </ul>
-<p>Once the script has been installed in the correct places in your app backend, it will work faithfully to keep Metisa up to date with your Product and Order records. This data forms the basis for recommendations.</p>
-<h5 id="options"><a name="options" class="plugin-anchor" href="#options"><i class="fa fa-link" aria-hidden="true"></i></a>Options</h5>
-<pre><code class="lang-js"><span class="hljs-comment">// Add to all pages (via base template). Used to point to the right API endpoint</span>
-mt(<span class="hljs-string">&apos;store&apos;</span>, <span class="hljs-string">&apos;{{ slug }}&apos;</span>);
-
-<span class="hljs-comment">// Add to product template. Used to update/create product in Metisa</span>
-mt(<span class="hljs-string">&apos;product&apos;</span>, <span class="hljs-string">&apos;{{ product }}&apos;</span>);
-
-<span class="hljs-comment">// Add to order checkout template. Used to update/create order in Metisa</span>
-mt(<span class="hljs-string">&apos;order&apos;</span>, <span class="hljs-string">&apos;{{ order }}&apos;</span>);
+<p>Once the script has been installed in the correct places in the templates of your website, it will work faithfully to keep Metisa up to date with your Item and Action records.</p>
+<p><br></p>
+<h5 id="Options"><a name="Options" class="plugin-anchor" href="#Options"><i class="fa fa-link" aria-hidden="true"></i></a>Options</h5>
+<p>The following code snippets are options for different templates:</p>
+<pre><code class="lang-js"><span class="hljs-comment">/**
+ * Add to all pages (via base template).
+ * Used to point to the right API endpoint.
+ */</span>
+mt(<span class="hljs-string">&apos;slug&apos;</span>, <span class="hljs-string">&apos;{{ metisa_account_slug }}&apos;</span>);
 
 <span class="hljs-comment">/**
- * Add to every page that has recommendation widget.
+ * Add to the template that contains the information of a single item.
+ * Used to update/create items in Metisa.
+ */</span>
+mt(<span class="hljs-string">&apos;item&apos;</span>, {{ itemData }});
+
+<span class="hljs-comment">/**
+ * Add to template that performs action on an item/a batch of items.
+ * Used to update/create actions in Metisa.
+ */</span>
+mt(<span class="hljs-string">&apos;action&apos;</span>, {{ actionData }});
+
+<span class="hljs-comment">/**
+ * Add to every page that has the recommendation widget.
  * Used to show personalized recommendations (eg. &quot;You may also like&quot;)
  */</span>
-mt(<span class="hljs-string">&apos;customer&apos;</span>, <span class="hljs-string">&apos;{{ customer.id }}&apos;</span>);
+mt(<span class="hljs-string">&apos;user&apos;</span>, {{ userId }});
 
 <span class="hljs-comment">/**
- * Add to every page that has recommendation widget.
+ * Add to every page that has the recommendation widget.
  * Used to show item-based recommendations (eg. &quot;People who bought this also bought&quot;)
  */</span>
-mt(<span class="hljs-string">&apos;product&apos;</span>, <span class="hljs-string">&apos;{{ product.id }}&apos;</span>);
+mt(<span class="hljs-string">&apos;itemId&apos;</span>, {{ itemId }});
 </code></pre>
 
                                 
@@ -281,7 +292,7 @@ mt(<span class="hljs-string">&apos;product&apos;</span>, <span class="hljs-strin
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Browser","level":"1.3","depth":1,"next":{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]},"previous":{"title":"Basics","level":"1.2","depth":1,"path":"BASIC/README.md","ref":"BASIC/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/BROWSER.md","mtime":"2017-09-13T05:50:34.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-19T09:19:18.651Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Browser","level":"1.3","depth":1,"next":{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]},"previous":{"title":"Basics","level":"1.2","depth":1,"path":"BASIC/README.md","ref":"BASIC/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/BROWSER.md","mtime":"2017-09-27T08:31:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T08:42:44.852Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
