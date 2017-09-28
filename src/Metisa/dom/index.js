@@ -38,7 +38,7 @@ class MetisaDom extends MetisawithIFrame {
     this.registerOptions = this.registerOptions.bind(this);
 
     this.attachRegisterOptionsToWindow();
-    this.renderWidget = _.once(this.registerOptions);
+    this.renderWidget = _.once(this.renderWidget);
   }
 
   /**
