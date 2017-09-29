@@ -2,8 +2,8 @@
 
 Metisa has two main functions:
 
-* [Tracking](#Tracking)
-* [Recommendation](#Recommendaton)
+* [Tracking](#tracking)
+* [Recommendation](#recommendaton)
 
 <br />
 ##### Tracking

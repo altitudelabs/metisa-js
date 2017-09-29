@@ -33,11 +33,7 @@ Hack away!
 
 ```html
 <div class="mt-widget" data-widget-id="1"></div>
-<script type="text/javascript">
+<script>
   mt('slug', 'metisa');
-
 </script>
 ```
-
-<br />
-You can find more about what you can do by reading our [API documentation](./API).
