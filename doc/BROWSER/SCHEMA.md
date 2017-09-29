@@ -39,7 +39,7 @@ var itemData = {
       image_url: 'https://amazingshoes.com/nike-running-shoes-blue.png',
       url: 'https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504327',
       price: '99.90'
-      price_discounted: null
+      price_discounted: '80'
     },
     {
       id: '5953504331',
@@ -48,7 +48,7 @@ var itemData = {
       image_url: 'https://amazingshoes.com/nike-running-shoes-green.png',
       url: 'https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504331',
       price: '99.90',
-      price_discounted: null
+      price_discounted: '80'
     }
   ]
 }
@@ -146,11 +146,8 @@ var itemData = {
     {
       id: '23145',
       name: null,
-      availability: null,
       image_url: 'http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground.jpg',
-      url: 'http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground',
-      price: null,
-      price_discounted: null
+      url: 'http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground'
     }
   ]
 }
@@ -158,18 +155,18 @@ var itemData = {
 
 > **Important:**
 > - Even if an item has no variant, the `variants` array **must** still have a single object describing the item itself. The `variant[0].id` should be identical to `id`, and `name` should be `null`.
-> - For non-required (i.e. optional) fields, if there is no data about the fields or the fields are not applicable to the item, those fields should be `null`.
+> - For optional (i.e. non-required) fields, if there is no data about the fields or the fields are not applicable to the item, those fields can be either `null` or omitted.
 > - If there are missing fields, Metisa will specify them in the HTTP 400 response.
 
 ### Action data
 
 Action data consists of these key value pairs:
-- **`id`** Action ID
+- `id` Action ID
 - **`user`** Data about who is using your app
-  - `id` User ID
+  - **`id`** User ID
   - `first_name` User first name
   - `last_name` User last name
-  - **`email`** User email address
+  - `email` User email address
 - `currency` Three-character currency symbol
 - **`line_items`** The list of items involved in the action
   - **`variant_id`** ID of the item variant
@@ -178,7 +175,7 @@ Action data consists of these key value pairs:
   - **`item_id`** ID of the parent item
   - `total_discount` Discount applied to the line item (factoring in quantity)
 
-##### Example 1: Product checkouts
+##### Example 1: Product checkout
 
 ```js
 var actionData = {
@@ -220,19 +217,15 @@ var actionData = {
     last_name: null,
     email: 'tester@exmaple.com',
   },
-  currency: null,
   line_items: [
     {
       variant_id: '34454',
-      quantity: null,
-      price: null,
-      item_id: '34454',
-      total_discount: null
+      item_id: '34454'
     }
   ]
 }
 ```
 
 > **Important:**
-> - If your store supports "guest" users, you may not generate a `user.id` and it can be left as `0` or `null`. Metisa will then switch strategy to use email to identify guest users.
+> - If your app supports "guest" users (eg. guest checkouts) where ID is not generated yet, please use a temporary unique ID for the `user.id` as it is a required field. In this case, user.email will be used to identify the user.
 > - If there are missing fields, Metisa will specify them in the HTTP 400 response.
