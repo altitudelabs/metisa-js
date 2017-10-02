@@ -1,0 +1,78 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    color: black;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 16px;
+}
+
+.alert-info {
+    text-align: left;
+}
+
+.movie-header {
+    margin-bottom: 30px;
+}
+
+.col-md-2 {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.item {
+    position: relative;
+}
+
+.item-action {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.item-action i {
+    font-size: 26px;
+    color: #fff;
+    text-shadow: -1px 0 #ccc, 0 1px #ccc, 1px 0 #ccc, 0 -1px #ccc;
+    cursor: pointer;
+}
+
+.item-action i:hover {
+    color: #d11c5d;
+}
+
+.item-action.liked i {
+    color: #d11c5d;
+}
+
+.item-img {
+    display: block;
+    max-height: 200px;
+    overflow: hidden;
+    background: rgb(0, 0, 0, 0.2);
+}
+
+.item-img img {
+    width: 100%;
+}
+
+.item-info {
+    font-weight: 300;
+    margin-top: 5px;
+    height: 80px;
+    font-size: 14px;
+}
