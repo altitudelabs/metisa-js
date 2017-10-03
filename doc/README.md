@@ -1,14 +1,17 @@
 # Metisa JavaScript SDK
 
-
-Metisa empowers businesses ...
-
-Our JavaScript SDK will help you easily integrate with Metisa in browser or Node.js environment.
+Metisa JavaScript SDK will help you easily integrate with Metisa in browser or Node.js (coming soon) environment.
 
 Before installation, you can click [here](https://askmetisa.com/docs/integrations/custom-ecommerce.html) to learn more about the prerequisites and concepts of our **Custom Integration** for e-commerce platforms.
 
 
 ## Installation
+
+For a guided installation tutorial for your app:
+* [Custom E-Commerce store](https://askmetisa.com/docs/integrations/custom-ecommerce.html)
+* [Custom Media app (eg. Spotify or movie recommendations app)](https://askmetisa.com/docs/integrations/custom-media-app.html)
+
+Below we go through the bare necessities to get set up with Metisa on your website.
 
 __In Browser__
 
@@ -26,14 +29,17 @@ crossorigin="anonymous"></script>
 Once jQuery is available, paste the following script to the same file below jQuery. This will load the Metisa script that is needed to send and receive data to/from Metisa.
 
 ```html
-<script src="http://metisa-sdk.s3-ap-southeast-1.amazonaws.com/js/v0.0/browser.js"></script>
+<script src="http://metisa-sdk.s3-ap-southeast-1.amazonaws.com/js/v0.0/metisa.js"></script>
 ```
 <br />
 Hack away!
 
 ```html
-<div class="mt-widget" data-widget-id="1"></div>
+<!-- Embed recommendation widget -->
+<div class="mt-widget" data-widget-id="{{ your_widget_id }}"></div>
+
+<!-- Init metisa.js script -->
 <script>
-  mt('slug', 'metisa');
+  mt('slug', '{{ your_metisa_account_slug }}');
 </script>
 ```

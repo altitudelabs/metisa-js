@@ -1,6 +1,6 @@
 ## Browser
 
-The `browser.js` script makes HTTP requests that:
+The `metisa.js` script makes HTTP requests that:
 - Sends item and action data browsed by users to Metisa server
 - Gets recommendation widget HTML and render widget on your site
 
