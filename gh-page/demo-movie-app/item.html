@@ -1,107 +1,107 @@
 <!doctype html>
 <html class="no-js" lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Metisa Movie Recommender Demo - Movie Detail</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Metisa Movie Recommender Demo - Movie Detail</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-		<div class="container">
-			<div class="row text-center">
-				<h1><a href="index.html">Movie recommender demo</a></h1>
-				<h2 class="title-border">Movie detail page</h2>
-				<div class="alert alert-info">This page demonstrates how you can send item information to Metisa and how you can install 'Related Item' recommendations on your item detail page.</div>
-			</div>
-			<div class="container">
-				<div class="row single-item clearfix"></div>
-			</div>
-			<!-- Metisa item widget starts here -->
-			<div class="mt-widget mt-widget-product" data-widget-id="1933" data-product-id=""></div>
-			<!-- Metisa item widget ends here -->
-		</div>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row text-center">
+        <h1><a href="index.html">Movie recommender demo</a></h1>
+        <h2 class="title-border">Movie detail page</h2>
+        <div class="alert alert-info">This page demonstrates how you can send item information to Metisa and how you can install 'Related Item' recommendations on your item detail page.</div>
+      </div>
+      <div class="container">
+        <div class="row single-item clearfix"></div>
+      </div>
+      <!-- Metisa item widget starts here -->
+      <div class="mt-widget mt-widget-product" data-widget-id="1933" data-product-id=""></div>
+      <!-- Metisa item widget ends here -->
+    </div>
 
-		<script src="js/jquery-1.12.0.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/handlebars-v4.0.10.js"></script>
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v4.0.10.js"></script>
 
-		<!-- Metisa integration starts here. Make sure you include metisa.js in every page of your site -->
-		<script src="js/metisa.js"></script>
+    <!-- Metisa integration starts here. Make sure you include metisa.js in every page of your site -->
+    <script src="js/metisa.js"></script>
 
-		<script>
-		  var imdbId = location.hash.slice(1);
+    <script>
+      var imdbId = location.hash.slice(1);
 
-		  renderMovieDescription(imdbId);
+      renderMovieDescription(imdbId);
 
-		  // 1. Specify item id on widget HTML
-		  $('.mt-widget-product').attr('data-product-id', imdbId);
+      // 1. Specify item id on widget HTML
+      $('.mt-widget-product').attr('data-product-id', imdbId);
 
-		  // 2. Identify your account slug to start Metisa
-		  mt('slug', 'demo');
+      // 2. Identify your account slug to start Metisa
+      mt('slug', 'demo');
 
-			function renderMovieDescription(imdbId) {
-				$.get('./js/items.json')
-				.then(function(result) {
-				  var movie = result.find(function(r) { return r.imdb_id === imdbId; });
-				  if (!movie) {
-				    alert('Could not find the movie with id ' + imdbId + ' . Please try again');
-				    history.back();
-				    return;
-				  }
+      function renderMovieDescription(imdbId) {
+        $.get('./js/items.json')
+        .then(function(result) {
+          var movie = result.find(function(r) { return r.imdb_id === imdbId; });
+          if (!movie) {
+            alert('Could not find the movie with id ' + imdbId + ' . Please try again');
+            history.back();
+            return;
+          }
 
-				  // 3. Send item information to Metisa
-				  mt('item', mapMovieToMetisaItem(movie));
+          // 3. Send item information to Metisa
+          mt('item', mapMovieToMetisaItem(movie));
 
-				  var image = movie.poster.imdb ? movie.poster.imdb.slice('http://ia.media-imdb.com/images/M/'.length) : "";
+          var image = movie.poster.imdb ? movie.poster.imdb.slice('http://ia.media-imdb.com/images/M/'.length) : "";
 
-				  movie = Object.assign(movie, {
-				    image: './img/imdb/' + image,
-				  })
+          movie = Object.assign(movie, {
+            image: './img/imdb/' + image,
+          })
 
-				  var source = $("#movie-detail").html();
-				  var template = Handlebars.compile(source);
-				  $('.single-item').html(template(movie));
-				});
-			}
+          var source = $("#movie-detail").html();
+          var template = Handlebars.compile(source);
+          $('.single-item').html(template(movie));
+        });
+      }
 
-			function mapMovieToMetisaItem(movie) {
-			  return {
-			    id: movie.imdb_id,
-			    name: movie.title,
-			    maker: null,
-			    variants: [{
-		        id: movie.imdb_id,
-		        image_url: movie.poster.imdb ? movie.poster.imdb.replace('http://ia.media-imdb.com/images/M/', 'https://altitudelabs.github.io/metisa-js/demo-movie-app/img/imdb/') : "",
-		        name: null,
-		        url: [
-		          'https://altitudelabs.github.io/metisa-js/demo-movie-app/item#',
-		          movie.imdb_id
-		        ].join(''),
-		        price: 0
-			    }]
-			  };
-			}
-		</script>
-		<!-- Metisa integration ends here -->
+      function mapMovieToMetisaItem(movie) {
+        return {
+          id: movie.imdb_id,
+          name: movie.title,
+          maker: null,
+          variants: [{
+            id: movie.imdb_id,
+            image_url: movie.poster.imdb ? movie.poster.imdb.replace('http://ia.media-imdb.com/images/M/', 'https://altitudelabs.github.io/metisa-js/demo-movie-app/img/imdb/') : "",
+            name: null,
+            url: [
+              'https://altitudelabs.github.io/metisa-js/demo-movie-app/item#',
+              movie.imdb_id
+            ].join(''),
+            price: 0
+          }]
+        };
+      }
+    </script>
+    <!-- Metisa integration ends here -->
 
-		<script id="movie-detail" type="text/x-handlebars-template">
-			<div class="col-md-3 single-big-photo view-lightbox slider-for">
-				<img src="{{image}}" alt="" />
-			</div>
-			<div class="item-info">
-				<h2 class="post-title floatleft">{{title}}</h2>
-				<div class="item-description">
-					<p>{{plot_simple}}</p>
-					<p>Released: {{year}}</p>
-					<p>Directors: {{#each directors}}{{this}}{{#unless @last}},{{/unless}} {{/each}}</p>
-					<p>Starring: {{#each actors}}{{this}}{{#unless @last}},{{/unless}} {{/each}}</p>
-				</div>
-			</div>
-		</script>
-	</body>
+    <script id="movie-detail" type="text/x-handlebars-template">
+      <div class="col-md-3 single-big-photo view-lightbox slider-for">
+        <img src="{{image}}" alt="" />
+      </div>
+      <div class="item-info">
+        <h2 class="post-title floatleft">{{title}}</h2>
+        <div class="item-description">
+          <p>{{plot_simple}}</p>
+          <p>Released: {{year}}</p>
+          <p>Directors: {{#each directors}}{{this}}{{#unless @last}},{{/unless}} {{/each}}</p>
+          <p>Starring: {{#each actors}}{{this}}{{#unless @last}},{{/unless}} {{/each}}</p>
+        </div>
+      </div>
+    </script>
+  </body>
 </html>
