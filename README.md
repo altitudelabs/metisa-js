@@ -26,7 +26,9 @@ The code that implements the movie recommendations app can be found in this repo
 
 ## Installation
 
-Read our [docs](https://altitudelabs.github.io/metisa-js/doc/)
+Refer to articles in the Metisa Help Center:
+* [Custom E-Commerce store](https://askmetisa.com/docs/integrations/custom-ecommerce.html)
+* [Custom Media app (eg. Spotify or movie recommendations app)](https://askmetisa.com/docs/integrations/custom-media-app.html)
 
 ## Upcoming features
 
