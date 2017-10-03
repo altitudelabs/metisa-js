@@ -20,7 +20,9 @@ This SDK is currently in Beta! Your feedback and comments are most welcome at he
 
 ## Demo
 
-[Demo](https://altitudelabs.github.io/metisa-js/demo-movie-app/)
+[Demo movie recommendations app](https://altitudelabs.github.io/metisa-js/demo-movie-app/)
+
+The code that implements the movie recommendations app can be found in this repository in the [demo-movie-app folder](https://github.com/altitudelabs/metisa-js/tree/master/gh-page/demo-movie-app).
 
 ## Installation
 
@@ -31,7 +33,7 @@ Read our [docs](https://altitudelabs.github.io/metisa-js/doc/)
 - Support for Node.js
 - Support for React Native
 
-## Development
+## Development (for contributors only)
 
 ### Run it locally
 
