@@ -149,6 +149,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="API.html">
+            
+                <a href="API.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
 
@@ -194,32 +207,35 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="metisa-javascript-sdk"><a name="metisa-javascript-sdk" class="plugin-anchor" href="#metisa-javascript-sdk"><i class="fa fa-link" aria-hidden="true"></i></a>Metisa JavaScript SDK</h1>
+                                <h1 id="metisa-javascript-sdk"><a name="metisa-javascript-sdk" class="plugin-anchor" href="#metisa-javascript-sdk"><i class="fa fa-link" aria-hidden="true"></i></a>Metisa Javascript SDK</h1>
 <p>Metisa empowers businesses ...</p>
-<p>Our JavaScript SDK will help you easily integrate with Metisa in browser or Node.js environment.</p>
-<p>Before installation, you can click <a href="https://askmetisa.com/docs/integrations/custom-ecommerce.html" target="_blank">here</a> to learn more about the prerequisites and concepts of our <strong>Custom Integration</strong> for e-commerce platforms.</p>
+<p>Javascript SDK will help you easily integrate with Metisa in browser or nodejs environment.</p>
 <h2 id="installation"><a name="installation" class="plugin-anchor" href="#installation"><i class="fa fa-link" aria-hidden="true"></i></a>Installation</h2>
 <p><strong>In Browser</strong></p>
 <p>Metisa for browser requires v1.5+ <a href="https://code.jquery.com/" target="_blank">jQuery</a>. Please make sure jQuery is available.</p>
-<p>Add this to your base template file if your site uses an older version of jQuery or does not use it at all.</p>
-<blockquote>
-<p><strong>Note:</strong> adding this code block when your site already loads jQuery has a very slim chance of breaking your site due to differences between versions.</p>
-</blockquote>
+<p>For example</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.2.1.min.js&quot;</span>
 <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=&quot;</span>
 <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<p><br>
-Once jQuery is available, paste the following script to the same file below jQuery. This will load the Metisa script that is needed to send and receive data to/from Metisa.</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://metisa-sdk.s3-ap-southeast-1.amazonaws.com/js/v0.0/browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<p>Once jQuery is available, paste the following script to your site. This will load Metisa SDK from our s3 bucket.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://d1uep6ftnlthjg.cloudfront.net/js/v0.0/browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<p><br>
-Hack away!</p>
+<p>Hack away!</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mt-widget&quot;</span> <span class="hljs-attr">data-widget-id</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
-  mt(<span class="hljs-string">&apos;slug&apos;</span>, <span class="hljs-string">&apos;metisa&apos;</span>);
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="actionscript">
+  mt(<span class="hljs-string">&apos;store&apos;</span>, <span class="hljs-string">&apos;metisa&apos;</span>);
+  mt(<span class="hljs-string">&apos;store&apos;</span>, <span class="hljs-string">&apos;metisa&apos;</span>);
+
+  <span class="hljs-comment">/*$(&apos;.my-product&apos;).on(&apos;click&apos;, function() {
+    mt(&apos;action&apos;, {
+      tag: &apos;&apos;
+    })
+  });*/</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
+<p><br>
+You can find more about what you can do by reading our <a href="API">API documentation</a></p>
 
                                 
                                 </section>
@@ -259,7 +275,7 @@ Hack away!</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Basics","level":"1.2","depth":1,"path":"BASIC/README.md","ref":"BASIC/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-10-03T02:32:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-03T04:40:48.925Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Basics","level":"1.2","depth":1,"path":"BASIC/README.md","ref":"BASIC/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors","livereload"],"pluginsConfig":{"anchors":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-09-13T08:55:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T02:40:01.870Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -267,6 +283,10 @@ Hack away!</p>
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>

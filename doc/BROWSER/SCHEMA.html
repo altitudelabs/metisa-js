@@ -7,7 +7,7 @@
         <title>Data schema · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -60,8 +60,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
-    
-    <link rel="next" href="../API.html" />
     
     
     <link rel="prev" href="BROWSER.html" />
@@ -151,19 +149,6 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../API.html">
-            
-                <a href="../API.html">
-            
-                    
-                    API
-            
-                </a>
-            
-
-            
-        </li>
-    
 
     
 
@@ -244,7 +229,7 @@
       image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-blue.png&apos;</span>,
       url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504327&apos;</span>,
       price: <span class="hljs-string">&apos;99.90&apos;</span>
-      price_discounted: <span class="hljs-literal">null</span>
+      price_discounted: <span class="hljs-string">&apos;80&apos;</span>
     },
     {
       id: <span class="hljs-string">&apos;5953504331&apos;</span>,
@@ -253,7 +238,7 @@
       image_url: <span class="hljs-string">&apos;https://amazingshoes.com/nike-running-shoes-green.png&apos;</span>,
       url: <span class="hljs-string">&apos;https://amazingshoes.com/products/nike-running-shoes?variant_id=5953504331&apos;</span>,
       price: <span class="hljs-string">&apos;99.90&apos;</span>,
-      price_discounted: <span class="hljs-literal">null</span>
+      price_discounted: <span class="hljs-string">&apos;80&apos;</span>
     }
   ]
 }
@@ -334,11 +319,8 @@
     {
       id: <span class="hljs-string">&apos;23145&apos;</span>,
       name: <span class="hljs-literal">null</span>,
-      availability: <span class="hljs-literal">null</span>,
       image_url: <span class="hljs-string">&apos;http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground.jpg&apos;</span>,
-      url: <span class="hljs-string">&apos;http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground&apos;</span>,
-      price: <span class="hljs-literal">null</span>,
-      price_discounted: <span class="hljs-literal">null</span>
+      url: <span class="hljs-string">&apos;http://www.example.com/home-run-beauty-skincare-labels-turn-to-natural-products-such-as-coffee-ground&apos;</span>
     }
   ]
 }
@@ -347,19 +329,19 @@
 <p><strong>Important:</strong></p>
 <ul>
 <li>Even if an item has no variant, the <code>variants</code> array <strong>must</strong> still have a single object describing the item itself. The <code>variant[0].id</code> should be identical to <code>id</code>, and <code>name</code> should be <code>null</code>.</li>
-<li>For non-required (i.e. optional) fields, if there is no data about the fields or the fields are not applicable to the item, those fields should be <code>null</code>.</li>
+<li>For optional (i.e. non-required) fields, if there is no data about the fields or the fields are not applicable to the item, those fields can be either <code>null</code> or omitted.</li>
 <li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
 </ul>
 </blockquote>
 <h3 id="action-data"><a name="action-data" class="plugin-anchor" href="#action-data"><i class="fa fa-link" aria-hidden="true"></i></a>Action data</h3>
 <p>Action data consists of these key value pairs:</p>
 <ul>
-<li><strong><code>id</code></strong> Action ID</li>
+<li><code>id</code> Action ID</li>
 <li><strong><code>user</code></strong> Data about who is using your app<ul>
-<li><code>id</code> User ID</li>
+<li><strong><code>id</code></strong> User ID</li>
 <li><code>first_name</code> User first name</li>
 <li><code>last_name</code> User last name</li>
-<li><strong><code>email</code></strong> User email address</li>
+<li><code>email</code> User email address</li>
 </ul>
 </li>
 <li><code>currency</code> Three-character currency symbol</li>
@@ -372,7 +354,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="example-1-product-checkouts"><a name="example-1-product-checkouts" class="plugin-anchor" href="#example-1-product-checkouts"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product checkouts</h5>
+<h5 id="example-1-product-checkout"><a name="example-1-product-checkout" class="plugin-anchor" href="#example-1-product-checkout"><i class="fa fa-link" aria-hidden="true"></i></a>Example 1: Product checkout</h5>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> actionData = {
   id: <span class="hljs-string">&apos;823413&apos;</span>,
   user: {
@@ -409,14 +391,10 @@
     last_name: <span class="hljs-literal">null</span>,
     email: <span class="hljs-string">&apos;tester@exmaple.com&apos;</span>,
   },
-  currency: <span class="hljs-literal">null</span>,
   line_items: [
     {
       variant_id: <span class="hljs-string">&apos;34454&apos;</span>,
-      quantity: <span class="hljs-literal">null</span>,
-      price: <span class="hljs-literal">null</span>,
-      item_id: <span class="hljs-string">&apos;34454&apos;</span>,
-      total_discount: <span class="hljs-literal">null</span>
+      item_id: <span class="hljs-string">&apos;34454&apos;</span>
     }
   ]
 }
@@ -424,7 +402,7 @@
 <blockquote>
 <p><strong>Important:</strong></p>
 <ul>
-<li>If your store supports &quot;guest&quot; users, you may not generate a <code>user.id</code> and it can be left as <code>0</code> or <code>null</code>. Metisa will then switch strategy to use email to identify guest users.</li>
+<li>If your app supports &quot;guest&quot; users (eg. guest checkouts) where ID is not generated yet, please use a temporary unique ID for the <code>user.id</code> as it is a required field. In this case, user.email will be used to identify the user.</li>
 <li>If there are missing fields, Metisa will specify them in the HTTP 400 response.</li>
 </ul>
 </blockquote>
@@ -455,14 +433,10 @@
 
             
                 
-                <a href="BROWSER.html" class="navigation navigation-prev " aria-label="Previous page: Browser">
+                <a href="BROWSER.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Browser">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../API.html" class="navigation navigation-next " aria-label="Next page: API">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -471,7 +445,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"next":{"title":"API","level":"1.4","depth":1,"path":"API.md","ref":"API.md","articles":[]},"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-09-28T08:24:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-03T01:21:54.811Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data schema","level":"1.3.1","depth":2,"previous":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BROWSER/SCHEMA.md","mtime":"2017-10-03T02:32:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-03T04:40:48.925Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

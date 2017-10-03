@@ -151,6 +151,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.4" data-path="../API.html">
+            
+                <a href="../API.html">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+        </li>
+    
 
     
 
@@ -202,23 +215,20 @@
 <li><a href="#tracking">Tracking</a></li>
 <li><a href="#recommendaton">Recommendation</a></li>
 </ul>
-<p><br></p>
 <h5 id="tracking"><a name="tracking" class="plugin-anchor" href="#tracking"><i class="fa fa-link" aria-hidden="true"></i></a>Tracking</h5>
-<p>Metisa tracks your users&apos; individual behaviour in order to come up with better personalized recommendations.</p>
+<p>Metisa tracks your users&apos; behaviour or purchases in order to come up with better personalised recommendations.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
-  mt(<span class="hljs-string">&apos;slug&apos;</span>, <span class="hljs-string">&apos;{{ metisa_account_slug }}&apos;</span>);
-  mt(<span class="hljs-string">&apos;item&apos;</span>, {{ itemData }});
-  mt(<span class="hljs-string">&apos;action&apos;</span>, {{ actionData }});
+  mt(<span class="hljs-string">&apos;product&apos;</span>, productData);
+  mt(<span class="hljs-string">&apos;order&apos;</span>, orderData);
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<p><br></p>
 <h5 id="recommendation"><a name="recommendation" class="plugin-anchor" href="#recommendation"><i class="fa fa-link" aria-hidden="true"></i></a>Recommendation</h5>
-<p>Once the tracking is set up, Metisa can now start providing personalized recommendations for your users that get more accurate with time.</p>
+<p>Once the tracking is set up, Metisa can now start feeding personalised recommendations for your users.</p>
 <pre><code class="lang-html"><span class="hljs-comment">&lt;!-- Place wherever you want the widget to be rendered --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mt-widget&quot;</span> <span class="hljs-attr">data-widget-id</span>=<span class="hljs-string">&quot;{{ widget_id }}&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;mt-widget&quot;</span> <span class="hljs-attr">data-widget-id</span>=<span class="hljs-string">9423</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
-  mt(<span class="hljs-string">&apos;slug&apos;</span>, <span class="hljs-string">&apos;{{ metisa_account_slug }}&apos;</span>);
+  mt(<span class="hljs-string">&apos;store&apos;</span>, yourMetisaAccountSlug);
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 
@@ -264,7 +274,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Basics","level":"1.2","depth":1,"next":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors"],"pluginsConfig":{"anchors":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BASIC/README.md","mtime":"2017-10-03T02:32:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-10-03T04:40:48.925Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Basics","level":"1.2","depth":1,"next":{"title":"Browser","level":"1.3","depth":1,"path":"BROWSER/BROWSER.md","ref":"BROWSER/BROWSER.md","articles":[{"title":"Data schema","level":"1.3.1","depth":2,"path":"BROWSER/SCHEMA.md","ref":"BROWSER/SCHEMA.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["anchors","livereload"],"pluginsConfig":{"anchors":{},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"BASIC/README.md","mtime":"2017-09-13T05:25:19.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-27T02:40:01.870Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -272,6 +282,10 @@
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
