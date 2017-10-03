@@ -33,7 +33,56 @@ Read our [docs](https://altitudelabs.github.io/metisa-js/doc/)
 
 ## Development
 
-**Folder structure**
+### Run it locally
+
+1. Install packages
+
+```
+npm install
+```
+
+2. Run a local version with http-server
+
+```
+npm install -g http-server
+cd gh-page/demo-movie-app
+http-server .
+```
+
+### Updating all items
+
+If you would like to update all items in Metisa (without visiting each `item.html` page), you can open the interactive console in `index.html` and run the function `updateAllItems()`.
+
+### Browser SDK
+
+1. open sample/browser/index.html from a browser
+2. run build scripts
+```
+npm run build-browser:watch
+```
+this will watch for changes in `src` directory and rebuild `dist/browser.js`.
+Refresh the browser to see the reflected change
+
+### Nodejs SDK
+
+`npm run node-sample`
+
+### Documentation
+
+`npm run build-doc:watch`
+
+### Deploying Documentation
+
+Prerequisite for this is [Gitbook CLI](https://www.npmjs.com/package/gitbook-cli)
+
+After updating contents inside `/gh-page`, you can deploy by simply running
+```
+npm run deploy-gh-page
+```
+
+You will be able to see the documentation [here](https://altitudelabs.github.io/metisa-js/doc/), and the demo store [here](https://altitudelabs.github.io/metisa-js/demo-movie-app/)
+
+### Folder structure
 
 ```
 ├── src
@@ -66,47 +115,3 @@ Read our [docs](https://altitudelabs.github.io/metisa-js/doc/)
 |   Directory deployed to Github Pages
 |   contains `/doc` and `/demo-movie-app`
 ```
-
-**Run it locally**
-
-1. Install packages
-
-```
-npm install
-```
-
-2. Run a local version with http-server
-
-```
-npm install -g http-server
-cd gh-page/demo-movie-app
-http-server .
-```
-
-*Browser SDK*
-1. open sample/browser/index.html from a browser
-2. run build scripts
-```
-npm run build-browser:watch
-```
-this will watch for changes in `src` directory and rebuild `dist/browser.js`.
-Refresh the browser to see the reflected change
-
-*Nodejs SDK*
-
-`npm run node-sample`
-
-*Documentation*
-
-`npm run build-doc:watch`
-
-**Deploying Documentation**
-
-Prerequisite for this is [Gitbook CLI](https://www.npmjs.com/package/gitbook-cli)
-
-After updating contents inside `/gh-page`, you can deploy by simply running
-```
-npm run deploy-gh-page
-```
-
-You will be able to see the documentation [here](https://altitudelabs.github.io/metisa-js/doc/), and the demo store [here](https://altitudelabs.github.io/metisa-js/demo-movie-app/)
